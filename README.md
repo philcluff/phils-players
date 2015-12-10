@@ -16,8 +16,6 @@ TODO: Describe the license for the actual site.
 
 ## TODO
 
-* Add more players.
+* Add more players
 * License information
 * Link to each player information
-* VideoJS Contrib Dash
-  * Allow NOT setting a WV server url
