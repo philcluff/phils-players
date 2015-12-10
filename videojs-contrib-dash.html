@@ -45,7 +45,8 @@
             <label for="license">Widevine License Server: <small>(Optional)</small></label>
             <input type="text" class="form-control" id="license" name="license">
           </div>
-          <button type="submit" class="btn btn-primary btn-lg">Play!</button>
+          <button type="submit" class="btn btn-primary btn-lg">Play!</button><br><br>
+          <button type="button" id="demo" class="btn btn-info btn-sm">Load Demo Manifest</button>
         </form>
       </div>
 
@@ -92,6 +93,11 @@
 
         player.play();
         event.preventDefault();
+      });
+
+      $( "#demo" ).click(function() {
+        $( "#manifest" ).val("http://rdmedia.bbc.co.uk/dash/ondemand/testcard/1/client_manifest-events.mpd");
+        $( "#playform" ).submit();
       });
       </script>
 
