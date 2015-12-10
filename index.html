@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>VideoJS with Contrib Dash (DashJS)</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <link href="css/jumbotron-narrow.css" rel="stylesheet">
+
+    <!-- VideoJS, DashJS -->
+    <script src="js/video.js"></script>
+    <script src="js/dash.all.js"></script>
+    <script src="js/videojs-dash.min.js"></script>
+    <link rel="stylesheet"href="css/video-js.min.css" ></link>
+    <link rel="stylesheet" type="text/css" href="videojs-contrib-dash.css"></link>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+  </head>
+
+  <body>
+
+    <div class="container">
+      <div class="header clearfix">
+        <nav>
+          <ul class="nav nav-pills pull-right">
+            <li role="presentation" class="active"><a href="#">Select Player</a></li>
+            <li role="presentation"><a href="#">About</a></li>
+            <li role="presentation"><a href="#">Contact</a></li>
+          </ul>
+        </nav>
+        <h3 class="text-muted">Phil's Players</h3>
+      </div>
+
+      <div class="jumbotron">
+        <form id="playform">
+          <div class="form-group">
+            <label for="manifest">MPEG DASH Manifest:</label>
+            <input type="text" class="form-control" id="manifest" name="manifest">
+          </div>
+          <div class="form-group">
+            <label for="license">Widevine License:</label>
+            <input type="text" class="form-control" id="license" name="license">
+          </div>
+          <button type="submit" class="btn btn-success">Play!</button>
+        </form>
+      </div>
+
+      <div class="jumbotron">
+        <video id="example" width="600" height="300" class="video-js vjs-default-skin center-block" controls/>
+      </div>
+
+      <script>
+      var player = videojs('example');
+      $( "#playform" ).submit(function( event ) {
+        var form = {};
+        $.each($('#playform').serializeArray(), function(_, kv) {
+          form[kv.name] = kv.value;
+        });
+        player.src({
+          src: form['manifest'],
+          type: 'application/dash+xml',
+          keySystemOptions: [
+            {
+              name: 'com.widevine.alpha',
+              options: {
+                licenseUrl: form['license']
+              }
+            }
+          ]
+        });
+        player.play();
+        event.preventDefault();
+      });
+      </script>
+
+      <footer class="footer">
+        <p>&copy; Phil Cluff 2015</p>
+      </footer>
+
+    </div>
+
+    <script src="js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>
