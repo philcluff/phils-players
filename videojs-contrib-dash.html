@@ -64,18 +64,32 @@
         $.each($('#playform').serializeArray(), function(_, kv) {
           form[kv.name] = kv.value;
         });
-        player.src({
-          src: form['manifest'],
-          type: 'application/dash+xml',
-          keySystemOptions: [
-            {
-              name: 'com.widevine.alpha',
-              options: {
-                licenseUrl: form['license']
+
+        // With Widevine
+        if (form['license'] !== "") {
+          console.log('Will do DRM');
+          player.src({
+            src: form['manifest'],
+            type: 'application/dash+xml',
+            keySystemOptions: [
+              {
+                name: 'com.widevine.alpha',
+                options: {
+                  licenseUrl: form['license']
+                }
               }
-            }
-          ]
-        });
+            ]
+          });
+        }
+        // No DRM
+        else {
+          console.log('Will NOT do DRM');
+          player.src({
+            src: form['manifest'],
+            type: 'application/dash+xml'
+          });
+        }
+
         player.play();
         event.preventDefault();
       });
