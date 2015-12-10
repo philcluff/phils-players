@@ -13,3 +13,11 @@ A (short) list: DashJS (Pure), VideoJS w/Contrib HLS, Shaka Player...
 TODO: Describe licenses for Bootstrap, DashJS, VideoJS, VideoJS Contrib Dash.
 
 TODO: Describe the license for the actual site.
+
+## TODO
+
+* Add more players.
+* License information
+* Link to each player information
+* VideoJS Contrib Dash
+  * Allow NOT setting a WV server url
