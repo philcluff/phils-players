@@ -1,21 +1,18 @@
 # Phil's Players
 
-A set of open source video players with simple GUIs for video engineers.
+A set of open source video players with simple GUIs for video engineers to use for testing.
 
-I got bored of bad player demo websites which didn't cater to the simple way I like to interact with software.
+I got bored of bad player demo websites which don't let me try my own media.
 
-My intention is to slowly populate this page with players, using a simple, idiot proof GUI.
-
-A (short) list: DashJS (Pure), VideoJS w/Contrib HLS, Shaka Player...
+My intention is to slowly populate this page with players, using a simple, idiot resistant GUI.
 
 ## License
 
-TODO: Describe licenses for Bootstrap, DashJS, VideoJS, VideoJS Contrib Dash.
-
+TODO: Describe licenses for Bootstrap, DashJS, VideoJS, VideoJS Contrib Dash, VideoJS Contrib HLS, etc.
 TODO: Describe the license for the actual site.
 
 ## TODO
 
 * Add more players
 * License information
-* Link to each player information
+* Version players more meaningfully
