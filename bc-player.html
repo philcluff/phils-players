@@ -61,7 +61,7 @@
         form[kv.name] = kv.value;
       });
 
-      console.log('Loading...');
+      console.log($( "#manifest" ).val());
       player.src({
         src: form['manifest'],
         type: 'application/dash+xml'
