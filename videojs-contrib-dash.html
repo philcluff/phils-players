@@ -65,17 +65,20 @@
     var player = videojs('example');
     $( "#playform" ).submit(function( event ) {
 
+      var licenseUrl = $( "#license" ).val();
+      var manifestUrl = $( "#manifest" ).val();
+
       // With Widevine
-      if ($( "#license" ).val() !== "") {
+      if (licenseUrl !== "") {
         console.log('Will do DRM');
         player.src({
-          src: $( "#manifest" ).val(),
+          src: manifestUrl,
           type: 'application/dash+xml',
           keySystemOptions: [
             {
               name: 'com.widevine.alpha',
               options: {
-                licenseUrl: $( "#license" ).val()
+                licenseUrl: licenseUrl
               }
             }
           ]
@@ -85,7 +88,7 @@
       else {
         console.log('Will NOT do DRM');
         player.src({
-          src: $( "#manifest" ).val(),
+          src: manifestUrl,
           type: 'application/dash+xml'
         });
       }
