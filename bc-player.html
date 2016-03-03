@@ -49,21 +49,16 @@
     </div>
 
     <div class="jumbotron">
-      <p>This player is The Brightcove Player with all DRM enabled.<br><a href="http://todo">More details can be found here.</a></p>
-      <p><small>This should play CENC content everywhere, using the Brightcove special sauce for setting license URLs, <a href="http://todo">as documented here.</a></small></p>
+      <p>This player is The Brightcove Player with all DRM enabled.<br><a href="https://www.brightcove.com/en/online-video-platform/video-player">More details can be found here.</a></p>
+      <p><small>This should play CENC content everywhere, using the Brightcove special sauce for setting license URLs, <a href="http://docs.brightcove.com/en/video-cloud/brightcove-player/guides/dash-drm.html">as documented here.</a></small></p>
     </div>
 
     <script>
     var player = videojs('example');
     $( "#playform" ).submit(function( event ) {
-      var form = {};
-      $.each($('#playform').serializeArray(), function(_, kv) {
-        form[kv.name] = kv.value;
-      });
 
-      console.log($( "#manifest" ).val());
       player.src({
-        src: form['manifest'],
+        src: $( "#manifest" ).val();,
         type: 'application/dash+xml'
       });
 
