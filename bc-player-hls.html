@@ -44,13 +44,12 @@
     </div>
 
     <div class="jumbotron">
-      <video id="example" width="600" height="300" data-account="4276901753001" data-player="edae5cc2-925e-4679-9984-89f75c7ddc31" data-embed="default" class="video-js vjs-default-skin center-block" controls></video>
-      <script src="//players.brightcove.net/4276901753001/edae5cc2-925e-4679-9984-89f75c7ddc31_default/index.min.js"></script>
+      <video id="example" width="600" height="300" data-account="BCOV_ACCOUNT" data-player="BCOV_PLAYER_DATA" data-embed="default" class="video-js vjs-default-skin center-block" controls></video>
+      <script src="BCOV_PLAYER_SCRIPT"></script>
     </div>
 
     <div class="jumbotron">
-      <p>This player is The Brightcove Player with all DRM enabled.<br><a href="https://www.brightcove.com/en/online-video-platform/video-player">More details can be found here.</a></p>
-      <p><small>This should play CENC content everywhere, using the Brightcove special sauce for setting license URLs, <a href="http://docs.brightcove.com/en/video-cloud/brightcove-player/guides/dash-drm.html">as documented here.</a></small></p>
+      <p>This player is The Brightcove Player.<br><a href="https://www.brightcove.com/en/online-video-platform/video-player">More details can be found here.</a></p>
     </div>
 
     <script>
@@ -59,7 +58,7 @@
 
       player.src({
         src: $( "#manifest" ).val(),
-        type: 'application/dash+xml'
+        type: 'application/vnd.apple.mpegurl'
       });
 
       player.play();
@@ -73,7 +72,7 @@
     </script>
 
     <footer class="footer">
-      <p>&copy; Phil Cluff 2016 (Modified by Jordi Cenzano</p>
+      <p>&copy; Phil Cluff 2016 (Modified by Jordi Cenzano)</p>
     </footer>
 
   </div>
