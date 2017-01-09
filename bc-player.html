@@ -48,11 +48,9 @@
     </div>
 
     <div class="jumbotron">
-      <!-- <video id="example" width="600" height="300" data&#45;account="4276901753001" data&#45;player="edae5cc2&#45;925e&#45;4679&#45;9984&#45;89f75c7ddc31" data&#45;embed="default" class="video&#45;js vjs&#45;default&#45;skin center&#45;block" controls></video> -->
-      <!-- <script src="//players.brightcove.net/4276901753001/edae5cc2&#45;925e&#45;4679&#45;9984&#45;89f75c7ddc31_default/index.min.js"></script> -->
-
-      <video id="example" data-account="5270290590001" data-player="BJszhI6rx" data-embed="default" data-application-id class="video-js center-block" controls width="600" height="300"></video>
+      <video id="example" data-account="5270290590001" data-player="BJszhI6rx" data-embed="default" data-application-id class="video-js vjs-default-skin center-block" controls width="600" height="300"></video>
       <script src="//players.brightcove.net/5270290590001/BJszhI6rx_default/index.min.js"></script>
+
       <!-- BC Player Debugger styles and script -->
       <link href="https://solutions.brightcove.com/marguin/debugger/css/brightcove-player-debugger.css" rel="stylesheet">
       <script src="https://solutions.brightcove.com/marguin/debugger/js/brightcove-player-debugger.min.js"></script>
@@ -63,7 +61,8 @@
       <p><small>This should play CENC content everywhere, using the Brightcove special sauce for setting license URLs, <a href="http://docs.brightcove.com/en/video-cloud/brightcove-player/guides/dash-drm.html">as documented here.</a></small></p>
     </div>
 
-    <script>
+    <script type='text/javascript'>
+
     var player = videojs('example');
     options = {
       "verbose": true,
@@ -75,7 +74,7 @@
       "debugAds": true,
     };
     player.playerDebugger(options);
-    // player.dash.mediaPlayer.getDebug().setLogToBrowserConsole(true);
+
     $( "#playform" ).submit(function( event ) {
       var licenseUrl = $( "#license" ).val();
       var manifestUrl = $( "#manifest" ).val();
