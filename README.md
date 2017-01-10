@@ -1,5 +1,3 @@
-# [Live demo!](https://philcluff.co.uk/players)
-
 # Phil's Players
 
 **[A hosted copy of the project is available here](https://philcluff.co.uk/players)**
