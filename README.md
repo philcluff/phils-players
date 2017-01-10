@@ -1,4 +1,4 @@
-# [Live demo!]([)https://philcluff.co.uk/players)
+# [Live demo!](https://philcluff.co.uk/players)
 
 # Phil's Players
 
