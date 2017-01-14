@@ -1,6 +1,6 @@
 # Phil's Players
 
-**[A hosted copy of the project is available here](https://philcluff.co.uk/players)**
+**[A hosted copy of the project is available here](http://philcluff.co.uk/players)**
 
 A set of video players with simple GUIs for video engineers to use for testing.
 
