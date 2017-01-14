@@ -39,7 +39,7 @@
           <input type="text" class="form-control" id="manifest" name="manifest">
         </div>
         <button type="submit" class="btn btn-primary btn-lg">Play!</button><br><br>
-        <button type="button" id="demo" class="btn btn-info btn-sm">Load Demo Manifest (from videoJS)</button>
+        <button type="button" id="demo" class="btn btn-info btn-sm">Load Demo Manifest</button>
       </form>
     </div>
 
@@ -50,6 +50,7 @@
 
     <div class="jumbotron">
       <p>This player is The Brightcove Player.<br><a href="https://www.brightcove.com/en/online-video-platform/video-player">More details can be found here.</a></p>
+      <p><small>This player is automatically updated.</small></p>
     </div>
 
     <script>
@@ -66,7 +67,7 @@
     });
 
     $( "#demo" ).click(function() {
-      $( "#manifest" ).val("http://d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8");
+      $( "#manifest" ).val("http://s3.amazonaws.com/_bc_dml/example-content/tears-of-steel/playlist.m3u8");
       $( "#playform" ).submit();
     });
     </script>
