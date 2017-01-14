@@ -15,6 +15,7 @@ My intention is to slowly populate this page with players, using a simple, idiot
   * A simple Chromecast player
 * Update dash.js and serve from the CDN
 * Merge the two Brightcove Player pages, auto detect manifest type, or have a drop down
+* Add my [SASH player](https://github.com/sfvideo/sash-player)
 
 ## Authors
 
