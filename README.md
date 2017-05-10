@@ -11,7 +11,11 @@ My intention is to slowly populate this page with players, using a simple, idiot
 ## TODO
 
 * Add more players
+<<<<<<< HEAD
   * A simple Chromecast player
+=======
+  * Shaka Player
+>>>>>>> Add chromecast button to VideoJS players
   * [SASH player](https://github.com/sfvideo/sash-player)
 * Merge the two Brightcove Player pages, auto detect manifest type, or have a drop down
 
