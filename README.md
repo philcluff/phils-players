@@ -11,7 +11,6 @@ My intention is to slowly populate this page with players, using a simple, idiot
 ## TODO
 
 * Add more players
-  * Shaka Player
   * A simple Chromecast player
   * [SASH player](https://github.com/sfvideo/sash-player)
 * Update dash.js and serve from the CDN
