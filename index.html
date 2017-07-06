@@ -8,19 +8,24 @@
   <title>Phil's Players - Select a player</title>
 
   <!-- Bootstrap -->
-  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/bootstrap.flatly.min.css" title="default" rel="stylesheet">
+  <link href="css/bootstrap.darkly.min.css" title="dark" rel="stylesheet">
   <link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
   <link href="css/jumbotron-narrow.css" rel="stylesheet">
+
+  <!-- Style Switcher -->
+  <script src="js/docs-themes.js" type="text/javascript"></script>
+  <script type="text/javascript">set_style();</script>
 </head>
 
 <body>
-
   <div class="container">
     <div class="header clearfix">
       <nav>
         <ul class="nav nav-pills pull-right">
           <li role="presentation" class="active"><a href="index.html">Select a Player</a></li>
-          <li role="presentation"><a href="#">Contact</a></li>
+          <li role="presentation"><a href="#" onclick='switch_style("dark"); return false;'>Dark</a></li>
+          <li role="presentation"><a href="#" onclick='switch_style("default"); return false;'>Light</a></li>
         </ul>
       </nav>
       <h3 class="text-muted">Phil's Players</h3>
