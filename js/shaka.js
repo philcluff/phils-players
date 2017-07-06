@@ -35,3 +35,4 @@ function onError(error) {
 }
 
 document.addEventListener('DOMContentLoaded', initApp);
+
