@@ -17,7 +17,10 @@ function switch_style(css_title) {
 
 function set_style() {
   var css_title = localStorage.getItem(theme_name)
-  if (css_title !== undefined) {
+  // Set theme if it's a known theme, otherwise use default:
+  if (css_title == "default" || css_title == "dark") {
     switch_style(css_title);
+  } else {
+    switch_style("default");
   }
 }
