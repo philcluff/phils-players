@@ -52,6 +52,10 @@ _gaq.push(['_trackPageview']);
           <label for="manifest">DASH Manifest:</label>
           <input type="text" class="form-control" id="manifest" name="manifest">
         </div>
+        <div class="form-group">
+          <label for="widevine-url">Widevine License URL: (Optional)</label>
+          <input type="text" class="form-control" id="widevine-url" name="manifest">
+        </div>
         <button type="submit" class="btn btn-primary btn-lg">Play!</button><br><br>
         <button type="button" id="demo" class="btn btn-info btn-sm">Load Demo Manifest</button>
       </form>
@@ -67,6 +71,14 @@ _gaq.push(['_trackPageview']);
 
     <script>
       $( "#playform" ).submit(function( event ) {
+        var widevineURL = $("#widevine-url").val()
+        if (widevineURL !== "") {
+          player.configure({
+            drm: {
+              servers: { 'com.widevine.alpha': widevineURL }
+            }
+          });
+        }
         // Try to load a manifest.
         // This is an asynchronous process.
         player.load( $( "#manifest" ).val() ).then(function() {
