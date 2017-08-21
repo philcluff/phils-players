@@ -280,10 +280,6 @@ CastPlayer.prototype.setupLocalPlayer = function () {
     };
 
     playerTarget.load = function(mediaIndex) {
-        this.remotePlayer.licenseUrl =
-            this.mediaContents[mediaIndex]['licenseUrl'];
-        localPlayer.src =
-            this.mediaContents[mediaIndex]['sources'][0];
         localPlayer.load();
     }.bind(this);
 
