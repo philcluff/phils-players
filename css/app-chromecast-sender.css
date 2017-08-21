@@ -1,0 +1,268 @@
+
+body {
+  background-color:#F2F2F2;
+  font-family: 'Roboto', "OpenSans", "Verdana", Georgia, Serif;
+}
+
+#msg {
+  font-weight:nromal;
+  font-size: 90%;
+  margin-left: 200px;
+  color: #fff;
+  display:none;
+  transition:opacity 0 2s;
+  -webkit-transition:opacity 0 2s; /* Safari */
+}
+
+#video_image_overlay {
+  margin-left: 40px;
+  margin-right: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  width: 960px;
+  height: 540px;
+  background: linear-gradient(
+     to top,
+     rgba(0, 0, 0, 0.9),
+     rgba(0, 0, 0, 0) 72%,
+     rgba(0, 0, 0, 0) 100%
+  );
+  z-index:0;
+  position:absolute;
+  display:none;
+}
+
+#video_element {
+  display:none;
+  margin-left: 40px;
+  margin-right: auto;
+  margin-top: 20px;
+  margin-bottom: 0px;
+  width: 960px;
+  height: 540px;
+  background-color:#000;
+}
+
+#media_control {
+  z-index:1000;
+  padding:0px;
+  opacity:0.7;
+  background-color:#000;
+  font-family: 'Roboto', "Open Sans", "Verdana", Georgia, Serif;
+  transition:opacity 1s;
+  -webkit-transition:opacity 1s; /* Safari */
+}
+
+#media_control:hover {
+  opacity: 0.7;
+}
+
+#play {
+  margin: 10px 20px 10px 10px;
+  float:left;
+  width: 65px;
+  height: 40px;
+}
+
+#pause {
+  display:none;
+  margin: 10px 20px 10px 10px;
+  float:left;
+  width: 65px;
+  height: 40px;
+}
+.button {
+  margin: 5px;
+  font-size: 100%;
+  font-family: 'Roboto', "Open Sans", "Verdana", Georgia, Serif;
+}
+
+.volume {
+  width:60px;
+  margin-left:8px;
+}
+
+#muteText {
+  width:30px;
+  margin-left:3px;
+}
+
+.muteButton {
+  font-size: 110%;
+  font-family: 'Roboto', "Open Sans", "Verdana", Georgia, Serif;
+}
+
+.imageIcon {
+  padding:3px 0px 0px 0px;
+  width:25px;
+}
+
+#progress {
+  margin: 20px 0px 10px -620px;
+  float:left;
+  width: 1px;
+  height: 36px;
+  z-index: 10;
+  background-repeat:repeat-x;
+}
+
+#progress_indicator {
+  margin: 20px 0px 10px -620px;
+  float:left;
+  draggable: true;
+  width: 6px;
+  height: 36px;
+  z-index: 1000;
+  background-repeat:repeat-x;
+}
+
+#progress_bg {
+  margin: 20px 20px 10px 0px;
+  float:left;
+  width: 600px;
+  height: 36px;
+  background-repeat:repeat-x;
+}
+
+#castbutton {
+  height: 50px;
+}
+
+#castbutton:hover {
+  --disconnected-color: white;
+  --connected-color: white;
+}
+
+#audio_off {
+  float:right;
+  margin:10px 4px 10px 0px;
+  width: 32px;
+  height: 32px;
+  display:none;
+  background-image:url('../imagefiles/audio_off.png');
+}
+
+#audio_on {
+  float:right;
+  width: 32px;
+  height: 32px;
+  margin:10px 4px 10px 0px;
+  display:block;
+  background-image:url('../imagefiles/audio_on.png');
+}
+
+#audio_bg {
+  float:right;
+  opacity: 0.1;
+  width: 41px;
+  height: 124px;
+  margin:-115px 8px -10px 0px;
+  display:block;
+  background-image:url('../imagefiles/audio_bg.png');
+  position:relative;
+  z-index:10;
+}
+
+#audio_bg_track {
+  float:right;
+  opacity: 0.0;
+  width: 16px;
+  height: 100px;
+  margin:-100px 20px -30px 0px;
+  display:block;
+  background-image:url('../imagefiles/audio_bg_track.png');
+  position:relative;
+  z-index:1000;
+}
+
+#audio_indicator {
+  float:right;
+  opacity: 0.0;
+  width: 16px;
+  height: 5px;
+  margin:-50px 20px -30px 0px;
+  display:none;
+  background-image:url('../imagefiles/audio_indicator.png');
+  position:relative;
+  z-index:1000;
+}
+
+#audio_bg_level {
+  float:right;
+  opacity: 0.0;
+  width: 16px;
+  height: 50px;
+  margin:-50px 20px -30px 0px;
+  display:block;
+  background-image:url('../imagefiles/audio_bg_level.png');
+  position:relative;
+  z-index:1000;
+}
+
+#duration {
+  float:right;
+  color: #fff;
+  width: 60px;
+  height: 32px;
+  margin:18px 15px 10px 15px;
+  display:block;
+}
+
+div.imageSub { position: relative; }
+div.imageSub img { z-index: 1; }
+div.imageSub div {
+  position: absolute;
+  left: 0%;
+  right: 0%;
+  bottom: 0px;
+  padding: 0px;
+}
+div.imageSub div.blackbg {
+  z-index: 2000;
+  bottom: 60px;
+  left: 300px;
+  width: 400px;
+  height: 30px;
+  color: #000;
+  background-color: #000;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  filter: alpha(opacity=50);
+  opacity: 0.5;
+  font-size:120%;
+  display:none;
+  padding:10px;
+}
+div.imageSub div.label {
+  z-index: 3000;
+  bottom: 60px;
+  left: 300px;
+  width: 400px;
+  height: 30px;
+  color: white;
+  font-size:120%;
+  display:none;
+  padding:10px;
+}
+
+#carousel {
+  width:990px;
+  margin:20px 10px 10px 40px;
+}
+
+.thumb {
+  float: left;
+  margin:10px 10px 10px 0px;
+  cursor: pointer;
+}
+
+.thumbnail {
+  margin-right:10px;
+  width:225px;
+  height:127px;
+}
+
+
+.vertical {
+    -webkit-transform: rotate(90deg);
+
+}
