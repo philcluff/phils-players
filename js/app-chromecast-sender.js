@@ -396,9 +396,9 @@ CastPlayer.prototype.setupRemotePlayer = function () {
     playerTarget.load = function (mediaIndex) {
         var mediaID = document.getElementById('manifest').value
         console.log('Loading...' + mediaID);
-        var licenseURL = document.getElementById('widevine-url').value
-        if (licenseURL !== '') {
-          mediaID = btoa(JSON.stringify({url: mediaID,licenseURL: licenseURL}))
+        var licenseUrl = document.getElementById('widevine-url').value
+        if (licenseUrl !== '') {
+          mediaID = btoa(JSON.stringify({url: mediaID,licenseUrl: licenseUrl}));
         }
         var mediaInfo = new chrome.cast.media.MediaInfo(mediaID, 'video/mp4');
         mediaInfo.metadata = new chrome.cast.media.GenericMediaMetadata();
