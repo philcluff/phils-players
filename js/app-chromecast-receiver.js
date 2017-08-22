@@ -796,6 +796,7 @@ sampleplayer.CastPlayer.prototype.loadVideo_ = function(info) {
   var self = this;
   var protocolFunc = null;
   var { url, licenseUrl } = sampleplayer.parseContentId(info.message.media.contentId);
+  mediaInformation.contentId = url
   var protocolFunc = sampleplayer.getProtocolFunction_(info.message.media);
   var wasPreloaded = false;
 
