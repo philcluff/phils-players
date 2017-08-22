@@ -580,6 +580,7 @@ sampleplayer.CastPlayer.prototype.preloadVideo_ = function(mediaInformation) {
   this.log_('preloadVideo_');
   var self = this;
   var { url,licenseUrl } = sampleplayer.parseContentId(mediaInformation.contentId);
+  mediaInformation.contentId = url
   var protocolFunc = sampleplayer.getProtocolFunction_(mediaInformation);
   if (!protocolFunc) {
     this.log_('No protocol found for preload');
