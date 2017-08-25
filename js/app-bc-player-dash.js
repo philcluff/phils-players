@@ -10,7 +10,7 @@ window.onload = function() {
     if (licenseUrl !== '') {
       playerSrcOpts.keySystemOptions = [{
         name: 'com.widevine.alpha',
-        options: { licenseUrl: licenseUrl }
+        options: { serverURL: licenseUrl }
       }]
     }
     player.src(playerSrcOpts);
