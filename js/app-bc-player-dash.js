@@ -6,7 +6,7 @@ window.onload = function() {
       type: 'application/dash+xml',
       dashPreprocessing: true
     };
-    var licenseUrl = $('#license').val();
+    var licenseUrl = $('#widevine-url').val();
     if (licenseUrl !== '') {
       playerSrcOpts.keySystemOptions = [{
         name: 'com.widevine.alpha',
