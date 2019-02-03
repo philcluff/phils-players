@@ -1,0 +1,45 @@
+#!/usr/bin/env ruby
+
+require 'json'
+
+def get_hls_output(width, height, bitrate)
+
+    hls_output_template = File.read("hls-output.json")
+    t = JSON.parse(hls_output_template)
+    t['VideoDescription']['Width'] = width # 640
+    t['VideoDescription']['Height'] = height # 360
+    bitrate_kbps = bitrate / 1000
+    t['VideoDescription']['VideoPreprocessors']['TimecodeBurnin']['Prefix'] = "hls-#{bitrate_kbps}kbps-#{height}p-" # 'hls-365kbps-360p-'
+    t['VideoDescription']['CodecSettings']['H264Settings']['Bitrate'] = bitrate # 365000
+    t['NameModifier'] = "-#{height}p-#{bitrate_kbps}k" # '-365-360'
+
+    return t
+end
+
+
+job = JSON.parse(File.read("media-convert-hls-only.json"))
+job['Settings']['OutputGroups'][0]['Outputs'].push(get_hls_output(416, 234, 145000))
+job['Settings']['OutputGroups'][0]['Outputs'].push(get_hls_output(640, 360, 365000))
+job['Settings']['OutputGroups'][0]['Outputs'].push(get_hls_output(768, 432, 730000))
+job['Settings']['OutputGroups'][0]['Outputs'].push(get_hls_output(768, 432, 1100000))
+job['Settings']['OutputGroups'][0]['Outputs'].push(get_hls_output(960, 540, 2000000))
+job['Settings']['OutputGroups'][0]['Outputs'].push(get_hls_output(1280, 720, 3000000))
+job['Settings']['OutputGroups'][0]['Outputs'].push(get_hls_output(1280, 720, 4500000))
+job['Settings']['OutputGroups'][0]['Outputs'].push(get_hls_output(1920, 1080, 6000000))
+job['Settings']['OutputGroups'][0]['Outputs'].push(get_hls_output(1920, 1080, 7800000))
+job_json = JSON.generate(job).gsub!('"', '\"')
+
+result = `aws --endpoint-url=https://n0stnx2va.mediaconvert.us-east-1.amazonaws.com mediaconvert create-job --cli-input-json "#{job_json}"`
+
+# Nasty hacks
+# job.gsub!("\n", ' ')
+# job.gsub!('"', '\"')
+# puts job
+
+# Acording to the docs this should work but it doesn't. Classic AWS.
+# result = `aws --endpoint-url=https://n0stnx2va.mediaconvert.us-east-1.amazonaws.com --region=us-east-1 mediaconvert create-job --cli-input-json=file://./media-convert-1.json`
+
+#  result = `aws --endpoint-url=https://n0stnx2va.mediaconvert.us-east-1.amazonaws.com mediaconvert create-job --cli-input-json "#{job}"`
+
+
+

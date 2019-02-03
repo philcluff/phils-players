@@ -1,0 +1,63 @@
+{
+  "Queue": "arn:aws:mediaconvert:us-east-1:209867822108:queues/Default",
+  "UserMetadata": {},
+  "Role": "arn:aws:iam::209867822108:role/media-convert",
+  "Settings": {
+    "OutputGroups": [
+      {
+        "Name": "Apple HLS",
+        "Outputs": [],
+        "OutputGroupSettings": {
+          "Type": "HLS_GROUP_SETTINGS",
+          "HlsGroupSettings": {
+            "ManifestDurationFormat": "INTEGER",
+            "SegmentLength": 6,
+            "TimedMetadataId3Period": 10,
+            "CaptionLanguageSetting": "OMIT",
+            "Destination": "s3://phils-players-video/outputs/bbb/mediaconvert/hls/bbb",
+            "TimedMetadataId3Frame": "PRIV",
+            "CodecSpecification": "RFC_4281",
+            "OutputSelection": "MANIFESTS_AND_SEGMENTS",
+            "ProgramDateTimePeriod": 600,
+            "MinSegmentLength": 0,
+            "MinFinalSegmentLength": 0,
+            "DirectoryStructure": "SINGLE_DIRECTORY",
+            "ProgramDateTime": "EXCLUDE",
+            "SegmentControl": "SEGMENTED_FILES",
+            "ManifestCompression": "NONE",
+            "ClientCache": "ENABLED",
+            "StreamInfResolution": "INCLUDE"
+          }
+        }
+      }
+    ],
+    "AdAvailOffset": 0,
+    "Inputs": [
+      {
+        "InputClippings": [
+          {
+            "EndTimecode": "00:01:00:00",
+            "StartTimecode": "00:00:00:00"
+          }
+        ],
+        "AudioSelectors": {
+          "Audio Selector 1": {
+            "Offset": 0,
+            "DefaultSelection": "DEFAULT",
+            "ProgramSelection": 1
+          }
+        },
+        "VideoSelector": {
+          "ColorSpace": "FOLLOW"
+        },
+        "FilterEnable": "AUTO",
+        "PsiControl": "USE_PSI",
+        "FilterStrength": 0,
+        "DeblockFilter": "DISABLED",
+        "DenoiseFilter": "DISABLED",
+        "TimecodeSource": "EMBEDDED",
+        "FileInput": "s3://phils-players-video/inputs/big_buck_bunny_1080p_h264.mov"
+      }
+    ]
+  }
+}
