@@ -38,16 +38,20 @@ def get_dash_audio_output(bitrate)
     return t
 end
 
-def get_mbr_job(input, short_name, output_base)
+# Generates a job given an input, a name, and an output base
+def get_job(input, short_name, output_base)
 
     hls_output = "#{output_base}/#{short_name}/mediaconvert/hls/#{short_name}"
     dash_output = "#{output_base}/#{short_name}/mediaconvert/dash/#{short_name}"
 
     job = JSON.parse(File.read("media-convert-no-outputs.json"))
 
+    # Input
     job['Settings']['Inputs'][0]['FileInput'] = input
+
+    # Output locations for HLS and DASH Output Groups
     job['Settings']['OutputGroups'][0]['OutputGroupSettings']['HlsGroupSettings']['Destination'] = hls_output
-    job['Settings']['OutputGroups'][1]['OutputGroupSettings']['DashIsoGroupSettings']['Destination'] = hls_output
+    job['Settings']['OutputGroups'][1]['OutputGroupSettings']['DashIsoGroupSettings']['Destination'] = dash_output
 
     # Add HLS Outputs (Muxed HLS V3)
     job['Settings']['OutputGroups'][0]['Outputs'].push(
@@ -83,12 +87,19 @@ def get_mbr_job(input, short_name, output_base)
     return job_json
 end
 
+# Input
 input_file = 's3://phils-players-video/inputs/big_buck_bunny_1080p_h264.mov'
+
+# Short Name (Included in the output path, be conscise here)
 short_name = 'bbb'
+
+# The Output location
 output_base = 's3://phils-players-video/outputs' # No trailing / pls
 
-# Run Encode
-job_json = get_mbr_job(input_file, short_name, output_base)
+# Generate the job
+job_json = get_job(input_file, short_name, output_base)
+
+# Run Job
 result = `aws --endpoint-url=https://n0stnx2va.mediaconvert.us-east-1.amazonaws.com mediaconvert create-job --cli-input-json "#{job_json}"`
 
 # Check if it worked, and give backk the ID.

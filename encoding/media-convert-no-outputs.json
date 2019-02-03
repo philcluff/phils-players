@@ -32,8 +32,7 @@
       },
       {
         "Name": "DASH ISO",
-        "Outputs": [
-        ],
+        "Outputs": [],
         "OutputGroupSettings": {
           "Type": "DASH_ISO_GROUP_SETTINGS",
           "DashIsoGroupSettings": {
