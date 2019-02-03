@@ -38,48 +38,62 @@ def get_dash_audio_output(bitrate)
     return t
 end
 
-job = JSON.parse(File.read("media-convert-no-outputs.json"))
+def get_mbr_job(input, short_name, output_base)
 
-# Add HLS Outputs (Muxed HLS V3)
-job['Settings']['OutputGroups'][0]['Outputs'].push(
-    get_hls_output(416, 234, 145000),
-    get_hls_output(640, 360, 365000),
-    get_hls_output(768, 432, 730000),
-    get_hls_output(768, 432, 1100000),
-    get_hls_output(960, 540, 2000000),
-    get_hls_output(1280, 720, 3000000),
-    get_hls_output(1280, 720, 4500000),
-    get_hls_output(1920, 1080, 6000000),
-    get_hls_output(1920, 1080, 7800000))
+    hls_output = "#{output_base}/#{short_name}/mediaconvert/hls/#{short_name}"
+    dash_output = "#{output_base}/#{short_name}/mediaconvert/dash/#{short_name}"
 
-# Add DASH Video Outputs (Live Segment Template)
-job['Settings']['OutputGroups'][1]['Outputs'].push(
-    get_dash_video_output(416, 234, 145000),
-    get_dash_video_output(640, 360, 365000),
-    get_dash_video_output(768, 432, 730000),
-    get_dash_video_output(768, 432, 1100000),
-    get_dash_video_output(960, 540, 2000000),
-    get_dash_video_output(1280, 720, 3000000),
-    get_dash_video_output(1280, 720, 4500000),
-    get_dash_video_output(1920, 1080, 6000000),
-    get_dash_video_output(1920, 1080, 7800000))
+    job = JSON.parse(File.read("media-convert-no-outputs.json"))
 
-# Add DASH Audio Outputs
-job['Settings']['OutputGroups'][1]['Outputs'].push(
-    get_dash_audio_output(64000),
-    get_dash_audio_output(128000),
-    get_dash_audio_output(192000))
+    job['Settings']['Inputs'][0]['FileInput'] = input
+    job['Settings']['OutputGroups'][0]['OutputGroupSettings']['HlsGroupSettings']['Destination'] = hls_output
+    job['Settings']['OutputGroups'][1]['OutputGroupSettings']['DashIsoGroupSettings']['Destination'] = hls_output
 
-job_json = JSON.generate(job).gsub!('"', '\"') # Escape quotes in JSON in the ugliest way possible. Probably breaks on some more complex use cases.
+    # Add HLS Outputs (Muxed HLS V3)
+    job['Settings']['OutputGroups'][0]['Outputs'].push(
+        get_hls_output(416, 234, 145000),
+        get_hls_output(640, 360, 365000),
+        get_hls_output(768, 432, 730000),
+        get_hls_output(768, 432, 1100000),
+        get_hls_output(960, 540, 2000000),
+        get_hls_output(1280, 720, 3000000),
+        get_hls_output(1280, 720, 4500000),
+        get_hls_output(1920, 1080, 6000000),
+        get_hls_output(1920, 1080, 7800000))
 
+    # Add DASH Video Outputs (Live Segment Template)
+    job['Settings']['OutputGroups'][1]['Outputs'].push(
+        get_dash_video_output(416, 234, 145000),
+        get_dash_video_output(640, 360, 365000),
+        get_dash_video_output(768, 432, 730000),
+        get_dash_video_output(768, 432, 1100000),
+        get_dash_video_output(960, 540, 2000000),
+        get_dash_video_output(1280, 720, 3000000),
+        get_dash_video_output(1280, 720, 4500000),
+        get_dash_video_output(1920, 1080, 6000000),
+        get_dash_video_output(1920, 1080, 7800000))
+
+    # Add DASH Audio Outputs
+    job['Settings']['OutputGroups'][1]['Outputs'].push(
+        get_dash_audio_output(64000),
+        get_dash_audio_output(128000),
+        get_dash_audio_output(192000))
+
+    job_json = JSON.generate(job).gsub!('"', '\"') # Escape quotes in JSON in the ugliest way possible. Probably breaks on some more complex use cases.
+    return job_json
+end
+
+input_file = 's3://phils-players-video/inputs/big_buck_bunny_1080p_h264.mov'
+short_name = 'bbb'
+output_base = 's3://phils-players-video/outputs' # No trailing / pls
+
+# Run Encode
+job_json = get_mbr_job(input_file, short_name, output_base)
 result = `aws --endpoint-url=https://n0stnx2va.mediaconvert.us-east-1.amazonaws.com mediaconvert create-job --cli-input-json "#{job_json}"`
 
+# Check if it worked, and give backk the ID.
 if $?.success?
     puts "Created Job ID: " + JSON.parse(result)['Job']['Id']
 else
     puts "Failed to create job :( "
 end
-
-# Acording to the docs this should work but it doesn't. Classic AWS.
-# result = `aws --endpoint-url=https://n0stnx2va.mediaconvert.us-east-1.amazonaws.com --region=us-east-1 mediaconvert create-job --cli-input-json=file://./media-convert-1.json`
-
