@@ -1,0 +1,26 @@
+{
+            "ContainerSettings": {
+              "Container": "MPD"
+            },
+            "AudioDescriptions": [
+              {
+                "AudioTypeControl": "FOLLOW_INPUT",
+                "AudioSourceName": "Audio Selector 1",
+                "CodecSettings": {
+                  "Codec": "AAC",
+                  "AacSettings": {
+                    "AudioDescriptionBroadcasterMix": "NORMAL",
+                    "Bitrate": 128000,
+                    "RateControlMode": "CBR",
+                    "CodecProfile": "LC",
+                    "CodingMode": "CODING_MODE_2_0",
+                    "RawFormat": "NONE",
+                    "SampleRate": 48000,
+                    "Specification": "MPEG4"
+                  }
+                },
+                "LanguageCodeControl": "FOLLOW_INPUT"
+              }
+            ],
+            "NameModifier": "-audio-128"
+          }
