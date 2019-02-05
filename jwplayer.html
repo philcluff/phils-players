@@ -57,7 +57,7 @@
     </div>
 
     <div class="jumbotron">
-      <p><small>JWPlayer (Auto updated - Production release channel)</small></p>
+      <p><small>JWPlayer Production release channel <span id="player-version"></span></small></p>
     </div>
 
     <script>
@@ -72,19 +72,20 @@
           autostart: true
       });
 
-      event.preventDefault();
+      // Put the player version in the text box. Cool eh?
+      semverParts = playerInstance.version.split('+');
+      $("#player-version").text('(' + semverParts[0] + ')');
+      
     });
 
     $( "#hls-demo" ).click(function( event ) {
       $( "#manifest" ).val("http://s3.amazonaws.com/_bc_dml/example-content/tears-of-steel/playlist.m3u8");
       $( "#play-button" ).trigger( "click" );
-      event.preventDefault();
     });
 
     $( "#dash-demo" ).click(function( event ) {
       $( "#manifest" ).val("http://rdmedia.bbc.co.uk/dash/ondemand/testcard/1/client_manifest-events.mpd");
       $( "#play-button" ).trigger( "click" );
-      event.preventDefault();
     });
     </script>
 

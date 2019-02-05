@@ -56,7 +56,7 @@
 
     <div class="jumbotron">
       <p>This player is DashJS (The DashIF Reference Player)<br><a href="https://github.com/Dash-Industry-Forum/dash.js/wiki">More details can be found here.</a></p>
-      <p><small>DashJS Latest Stable (<span id="dash-js-version"></span>)</small></p>
+      <p><small>DashJS Latest Stable <span id="player-version"></span></small></p>
     </div>
 
     <script>
@@ -65,7 +65,7 @@
     var player = dashjs.MediaPlayer().create();
 
     // Put the player version in the text box. Cool eh?
-    $("#dash-js-version").text(player.getVersion())
+    $("#player-version").text('(' + player.getVersion() + ')')
 
     $( "#play-button" ).click(function() {
       player.initialize(video, $( "#manifest" ).val(), true);
