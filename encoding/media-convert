@@ -6,12 +6,24 @@ require 'json'
 def get_hls_output(width, height, bitrate)
     hls_output_template = File.read("hls-output.json")
     t = JSON.parse(hls_output_template)
+
+    # Video
     t['VideoDescription']['Width'] = width # 640
     t['VideoDescription']['Height'] = height # 360
     bitrate_kbps = bitrate / 1000
     t['VideoDescription']['VideoPreprocessors']['TimecodeBurnin']['Prefix'] = "hls-#{bitrate_kbps}kbps-#{height}p-" # 'hls-365kbps-360p-'
     t['VideoDescription']['CodecSettings']['H264Settings']['Bitrate'] = bitrate # 365000
     t['NameModifier'] = "-#{height}p-#{bitrate_kbps}k" # '-360p-365k'
+
+    # Lazy Audio bitrate mapping
+    if bitrate > 2000000
+        t['AudioDescriptions'][0]['CodecSettings']['AacSettings']['Bitrate'] = 192000
+    elsif bitrate > 1000000 
+        t['AudioDescriptions'][0]['CodecSettings']['AacSettings']['Bitrate'] = 128000
+    else
+        t['AudioDescriptions'][0]['CodecSettings']['AacSettings']['Bitrate'] = 64000
+    end
+
     return t
 end
 
@@ -48,6 +60,9 @@ def get_job(input, short_name, output_base)
 
     # Input
     job['Settings']['Inputs'][0]['FileInput'] = input
+
+    # Uncomment this to run the full encode... $$$$$$
+    #job.['Settings']['Inputs'][0].delete(['InputClippings'])
 
     # Output locations for HLS and DASH Output Groups
     job['Settings']['OutputGroups'][0]['OutputGroupSettings']['HlsGroupSettings']['Destination'] = hls_output
