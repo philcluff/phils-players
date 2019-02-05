@@ -17,8 +17,8 @@
   <script src="js/docs-themes.js" type="text/javascript"></script>
   <script type="text/javascript">set_style();</script>
 
-  <!-- DashJS -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/dashjs/2.9.1/dash.all.min.js"></script>
+  <!-- DashJS Latest -->
+  <script src="http://cdn.dashjs.org/latest/dash.all.min.js"></script>
 
   <!-- JQuery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
@@ -45,8 +45,8 @@
           <label for="manifest">MPEG DASH Manifest:</label>
           <input type="text" class="form-control" id="manifest" name="manifest">
         </div>
-        <button type="submit" class="btn btn-primary btn-lg">Play!</button><br><br>
-        <button type="button" id="demo" class="btn btn-info btn-sm">Load Demo Manifest</button>
+        <button type="button" id="play-button" class="btn btn-primary btn-lg">Play!</button><br><br>
+        <button type="button" id="demo-button" class="btn btn-info btn-sm">Load Demo Manifest</button>
       </form>
     </div>
 
@@ -56,21 +56,24 @@
 
     <div class="jumbotron">
       <p>This player is DashJS (The DashIF Reference Player)<br><a href="https://github.com/Dash-Industry-Forum/dash.js/wiki">More details can be found here.</a></p>
-      <p><small>DashJS 2.9.1 (Released October 29th, 2018)</small></p>
+      <p><small>DashJS Latest Stable <span id="player-version"></span></small></p>
     </div>
 
     <script>
-    $( "#playform" ).submit(function( event ) {
 
-      video = document.querySelector("#example");
-      var player = dashjs.MediaPlayer().create();
+    video = document.querySelector("#example");
+    var player = dashjs.MediaPlayer().create();
+
+    // Put the player version in the text box. Cool eh?
+    $("#player-version").text('(' + player.getVersion() + ')')
+
+    $( "#play-button" ).click(function() {
       player.initialize(video, $( "#manifest" ).val(), true);
-      event.preventDefault();
     });
 
-    $( "#demo" ).click(function() {
-      $( "#manifest" ).val("http://rdmedia.bbc.co.uk/dash/ondemand/testcard/1/client_manifest-events.mpd");
-      $( "#playform" ).submit();
+    $( "#demo-button" ).click(function() {
+      $( "#manifest" ).val("https://d1czxfd0hfd9km.cloudfront.net/outputs/bbb/mediaconvert/dash/bbb.mpd");
+      $( "#play-button" ).trigger( "click" );
     });
 
     </script>
