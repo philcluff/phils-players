@@ -7,6 +7,7 @@ const mergeAndRemoveNull = (...args) => {
     }
   });
   return result;
+
 };
 
 const customGetLicense = (keySystemOptions) => (emeOptions, keyMessage, callback) => {
@@ -57,7 +58,7 @@ const play = () => {
 window.onload = () => {
   const manifest     = document.getElementById('manifest'),
         widevine_url = document.getElementById('widevine-url'),
-        bcov_auth = document.getElementById('bcov_auth');
+        bcov_auth = document.getElementById('bcov-auth');
 
   if (!!localStorage.getItem('manifest')) {
     manifest.value = localStorage.getItem('manifest');
