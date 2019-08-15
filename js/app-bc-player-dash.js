@@ -11,7 +11,7 @@ const mergeAndRemoveNull = (...args) => {
 };
 
 const customGetLicense = (keySystemOptions) => (emeOptions, keyMessage, callback) => {
-  console.log('Get License');
+  const auth_alert = document.getElementById('bcov-auth-alert');
   const headers = mergeAndRemoveNull(
     {'Content-type': 'application/octet-stream'},
     emeOptions.emeHeaders,
@@ -26,8 +26,18 @@ const customGetLicense = (keySystemOptions) => (emeOptions, keyMessage, callback
     headers
   }, (err, response, responseBody) => {
     if (err) {
+      auth_alert.className = 'alert alert-warning';
+      auth_alert.innerHTML = 'Unknown Error';
       callback(err);
       return;
+    }
+    const jwt_valid = response.headers['bcov-jwt-validity'];
+    if (!jwt_valid) {
+      auth_alert.className = 'alert alert-warning';
+      auth_alert.innerHTML = 'No bcov-jwt-validity Header Found';
+    } else {
+      auth_alert.className = jwt_valid == 'success' ? 'alert alert-success' : 'alert alert-danger';
+      auth_alert.innerHTML = 'Brightcove JWT Validity: '+jwt_valid;
     }
     console.log(response.headers);
     callback(null, responseBody);
@@ -36,13 +46,18 @@ const customGetLicense = (keySystemOptions) => (emeOptions, keyMessage, callback
 
 const play = () => {
   var player = videojs('example');
-  const
-      manifest_url = document.getElementById("manifest").value,
+  const auth_alert = document.getElementById('bcov-auth-alert'),
+      manifest_url = document.getElementById('manifest').value,
       bcov_auth = document.getElementById('bcov-auth').value,
       widevine_url = document.getElementById('widevine-url').value;
   localStorage.setItem('manifest',manifest_url);
   localStorage.setItem('widevine_url',widevine_url);
   localStorage.setItem('bcov_auth',bcov_auth);
+  auth_alert.hidden = !bcov_auth
+  if (!auth_alert.hidden) {
+    auth_alert.className = 'alert';
+    auth_alert.innerHTML = '.....';
+  }
   player.src({
     src: manifest_url,
     type: 'application/dash+xml',
