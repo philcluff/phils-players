@@ -1,105 +1,87 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+---
+layout: default
+---
+<h1>Shaka</h1>
 
-  <title>Bobby's Players - VideoJS with Contrib Dash (DashJS)</title>
+<!--  Shaka Player -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/2.1.0/shaka-player.compiled.debug.externs.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/2.1.0/shaka-player.compiled.debug.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/2.1.0/shaka-player.compiled.externs.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/2.1.0/shaka-player.compiled.js"></script>
+<script src="js/app-shaka.js"></script>
 
-  <!-- Bootstrap -->
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
-  <link href="css/jumbotron-narrow.css" rel="stylesheet">
+<section class="bootstrap-iso">
+  <form id="playform">
+    <div class="form-group">
+      <label for="manifest">DASH Manifest:</label>
+      <input type="text" class="form-control" id="manifest" name="manifest">
+    </div>
+    <div class="form-group">
+      <label for="widevine-url">Widevine License URL: (Optional)</label>
+      <input type="text" class="form-control" id="widevine-url" name="manifest">
+    </div>
+    <button type="submit" class="btn btn-primary btn-lg">Play!</button><br><br>
+    <button type="button" id="demo" class="btn btn-info btn-sm">Load Demo Manifest</button>
+  </form>
+</section>
 
-  <!--  JQuery -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<section>
+  <video id="video"
+          width="600"
+          height="300"
+          poster="//shaka-player-demo.appspot.com/assets/poster.jpg"
+          controls autoplay></video>
+</section>
 
-  <!--  Shaka Player -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/2.1.0/shaka-player.compiled.debug.externs.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/2.1.0/shaka-player.compiled.debug.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/2.1.0/shaka-player.compiled.externs.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/2.1.0/shaka-player.compiled.js"></script>
-  <script src="js/app-shaka.js"></script>
+<p>This player is The Shaka Player.<br><a href="https://github.com/google/shaka-player">More details can be found here.</a></p>
 
-  <!-- Google Analytics -->
-  <script type="text/javascript">
-var _gaq = _gaq || [];
-_gaq.push(['_setAccount', 'UA-30849962-1']);
-_gaq.push(['_trackPageview']);
-!function() {
-	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-}();
+<script>
+  function onError(error) {
+    // Log the error.
+    console.error('Error code', error.code, 'object', error);
+  }
+  // Init App
+  document.addEventListener('DOMContentLoaded',() => {
+    // Install built-in polyfills to patch browser incompatibilities.
+    shaka.polyfill.installAll();
+    if (!shaka.Player.isBrowserSupported()) {
+      // This browser does not have the minimum set of APIs we need.
+      console.error('Browser not supported!');
+      return;
+    }
+    // Everything looks good!
+    // Create a Player instance.
+    const video = document.getElementById('video'),
+      player = new shaka.Player(video);
+    // Attach player to the window to make it easy to access in the JS console.
+    window.player = player;
+    // Listen for error events.
+    player.addEventListener('error', (event) => onError(event.detail));
+  });
+
+  const widevine = document.getElementById('widevine-url'),
+    manifest = document.getElementById('manifest');
+
+  function play() {
+    if (widevine.value !== '') {
+      player.configure({ drm: {
+        servers: { 'com.widevine.alpha': widevine.value },
+      }})
+    }
+    // Try to load a manifest.
+    // This is an asynchronous process.
+    player.load( manifest.value ).then(() => {
+      // This runs if the asynchronous load is successful.
+      console.log('The video has now been loaded!');
+    }).catch(onError);  // onError is executed if the asynchronous load fails.
+    return false;
+  }
+  document.getElementById('playform').onsubmit = () => {
+    play();
+    return false
+  };
+  document.getElementById('demo').onclick = () => {
+    manifest.value = 'http://rdmedia.bbc.co.uk/dash/ondemand/testcard/1/client_manifest-events.mpd'
+    play();
+  };
 </script>
-</head>
-
-<body>
-  <div class="container">
-    <div class="header clearfix">
-      <nav>
-        <ul class="nav nav-pills pull-right">
-          <li role="presentation"><a href="index.html">Select a Player</a></li>
-        </ul>
-      </nav>
-      <h3 class="text-muted">Bobby's Players</h3>
-    </div>
-
-    <div class="jumbotron">
-      <form id="playform">
-        <div class="form-group">
-          <label for="manifest">DASH Manifest:</label>
-          <input type="text" class="form-control" id="manifest" name="manifest">
-        </div>
-        <div class="form-group">
-          <label for="widevine-url">Widevine License URL: (Optional)</label>
-          <input type="text" class="form-control" id="widevine-url" name="manifest">
-        </div>
-        <button type="submit" class="btn btn-primary btn-lg">Play!</button><br><br>
-        <button type="button" id="demo" class="btn btn-info btn-sm">Load Demo Manifest</button>
-      </form>
-    </div>
-
-    <div class="jumbotron">
-      <video id="video"
-             width="600"
-             height="300"
-             poster="//shaka-player-demo.appspot.com/assets/poster.jpg"
-             controls autoplay/></video>
-    </div>
-
-    <script>
-      $( "#playform" ).submit(function( event ) {
-        var widevineURL = $("#widevine-url").val()
-        if (widevineURL !== "") {
-          player.configure({
-            drm: {
-              servers: { 'com.widevine.alpha': widevineURL }
-            }
-          });
-        }
-        // Try to load a manifest.
-        // This is an asynchronous process.
-        player.load( $( "#manifest" ).val() ).then(function() {
-          // This runs if the asynchronous load is successful.
-          console.log('The video has now been loaded!');
-        }).catch(onError);  // onError is executed if the asynchronous load fails.
-        event.preventDefault();
-      });
-      $( "#demo" ).click(function() {
-        $( "#manifest" ).val("http://rdmedia.bbc.co.uk/dash/ondemand/testcard/1/client_manifest-events.mpd");
-        $( "#playform" ).submit();
-      });
-    </script>
-
-    <div class="jumbotron">
-      <p>This player is The Shaka Player.<br><a href="https://github.com/google/shaka-player">More details can be found here.</a></p>
-    </div>
-
-    <footer class="footer">
-      <p>Shamelessly copied from <a href="http://philcluff.co.uk/players/index.html">Phil's Players</a> &copy; Phil Cluff 2016</p>
-    </footer>
-  </div>
-</body>
-</html>

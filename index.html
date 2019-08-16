@@ -1,67 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+---
+layout: default
+---
 
-  <title>Bobby's Players - Select a player</title>
-
-  <!-- Bootstrap -->
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
-  <link href="css/jumbotron-narrow.css" rel="stylesheet">
-  <script type="text/javascript">
-var _gaq = _gaq || [];
-_gaq.push(['_setAccount', 'UA-30849962-1']);
-_gaq.push(['_trackPageview']);
-!function() {
-	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-}();
-</script>
-</head>
-
-<body>
-
-  <div class="container">
-    <div class="header clearfix">
-      <nav>
-        <ul class="nav nav-pills pull-right">
-          <li role="presentation" class="active"><a href="index.html">Select a Player</a></li>
-        </ul>
-      </nav>
-      <h3 class="text-muted">Bobby's Players</h3>
-    </div>
-
-    <div class="jumbotron">
-      <h1>Bobby's Players</h1>
-      <p>A set of video players with simple GUIs for video engineers testing purposes.</p>
-      <ul class="list-group">
-        <li class="list-group-item"><a href="videojs-contrib-hls.html" >VideoJS with Contrib HLS</a></li>
-        <li class="list-group-item"><a href="videojs-contrib-dash.html" >VideoJS with Contrib Dash (With Widevine)</a></li>
-        <li class="list-group-item"><a href="dashjs.html" >DashJS (DashIF Reference Player)</a></li>
-        <li class="list-group-item"><a href="shaka.html" >Shaka Player</a></li>
-        <li class="list-group-item"><a href="bc-player-dash.html" >Brightcove Player (Dash CENC with Silverlight fallback)</a></li>
-        <li class="list-group-item"><a href="bc-player-hls.html" >Brightcove Player (HLS)</a></li>
-	<li class="list-group-item"><a href="chromecast-sender.html" >Dash ChromeCast Sender</a></li>   
-      </ul>
-    </div>
-
-    <div class="jumbotron">
-      <h2>Tell me more...</h2>
-      <p>shamelessly copied from <a href="http://philcluff.co.uk/players/index.html">Phil's Players</a></p>
-      <p>Players TODO: Shaka Player.</p>
-      <p><a href="https://github.com/soldiermoth/bobbys-players">Code's on Github!</a></p>
-    </div>
-
-    <footer class="footer">
-      <p>Shamelessly copied from <a href="http://philcluff.co.uk/players/index.html">Phil's Players</a> &copy; Phil Cluff 2016</p>
-    </footer>
-
-  </div>
-
-  <script src="js/ie10-viewport-bug-workaround.js"></script>
-</body>
-</html>
+<h1>Test Video Players</h1>
+<p>A set of video players with simple GUIs for video engineers testing purposes.</p>
+{% for p in site.players %}
+<h2><a href="{{ p.url }}" >{{ p.short_name }}</a></h2>
+<p>{{ p.description }}</p>
+{% endfor %}

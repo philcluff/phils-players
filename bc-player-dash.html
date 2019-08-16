@@ -1,91 +1,127 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+---
+layout: default
+---
+<h1>Brightcove Player: Dash</h1>
 
-  <title>Bobby's Players - Brightcove Player</title>
-
-  <!-- Bootstrap -->
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
-  <link href="css/jumbotron-narrow.css" rel="stylesheet">
-
-  <link rel="stylesheet" type="text/css" href="css/videojs-contrib-dash.css"></link>
-
-  <!--  JQuery -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-  <script src="js/app-bc-player-dash.js"></script>
-  <script type="text/javascript">
-var _gaq = _gaq || [];
-_gaq.push(['_setAccount', 'UA-30849962-1']);
-_gaq.push(['_trackPageview']);
-!function() {
-	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-}();
-</script>
-</head>
-
-<body>
-
-  <div class="container">
-    <div class="header clearfix">
-      <nav>
-        <ul class="nav nav-pills pull-right">
-          <li role="presentation"><a href="index.html">Select a Player</a></li>
-        </ul>
-      </nav>
-      <h3 class="text-muted">Bobby's Players</h3>
-    </div>
-
-    <div class="jumbotron">
-      <form id="playform">
-        <div class="form-group">
-          <label for="manifest">MPEG DASH Manifest:</label>
-          <input type="text" class="form-control" id="manifest" name="manifest">
-        </div>
-        <div class="form-group">
-          <label for="widevine-url">Widevine License URL: (Optional)</label>
-          <input type="text" class="form-control" id="widevine-url" name="manifest">
-        </div>
-        <div class="form-group">
-          <label for="bcov-auth">BCOV Auth JWT: (Optional)</label>
-          <input type="text" class="form-control" id="bcov-auth" name="manifest">
-          <div id="bcov-auth-alert" role="alert" hidden></div>
-        </div>
-        <button type="submit" class="btn btn-primary btn-lg">Play!</button><br><br>
-        <button type="button" id="demo" class="btn btn-info btn-sm">Load Demo Manifest</button>
-      </form>
-    </div>
-
-    <div class="jumbotron">
-        <video-js
-        id="example"
-        data-account="4590388345001"
-        data-player="3d0HFahKY"
-        data-embed="default" controls=""
-        data-application-id=""
-        width="600" height="300">
-      </video-js>
-      <script
-        src="//players.brightcove.net/4590388345001/3d0HFahKY_default/index.min.js">
-      </script>
-    </div>
-
-    <div class="jumbotron">
-      <p>This player is The Brightcove Player with all DRM enabled.<br><a href="https://www.brightcove.com/en/online-video-platform/video-player">More details can be found here.</a></p>
-      <p><small>This should play CENC content everywhere, using the Brightcove special sauce for setting license URLs, <a href="http://docs.brightcove.com/en/video-cloud/brightcove-player/guides/dash-drm.html">as documented here.</a></small></p>
-    </div>
-
-    <footer class="footer">
-     <p>Shamelessly copied from <a href="http://philcluff.co.uk/players/index.html">Phil's Players</a> &copy; Phil Cluff 2016</p>
-    </footer>
-
+<section class="bootstrap-iso">
+<form id="playform">
+  <div class="form-group">
+    <label for="manifest">MPEG DASH Manifest:</label>
+    <input type="text" class="form-control" id="manifest" name="manifest">
   </div>
+  <div class="form-group">
+    <label for="widevine-url">Widevine License URL: (Optional)</label>
+    <input type="text" class="form-control" id="widevine-url" name="manifest">
+  </div>
+  <div class="form-group">
+    <label for="bcov-auth">BCOV Auth JWT: (Optional)</label>
+    <input type="text" class="form-control" id="bcov-auth" name="manifest">
+    <div id="bcov-auth-alert" role="alert" hidden></div>
+  </div>
+  <button type="submit" class="btn btn-primary btn-lg">Play!</button><br><br>
+  <button type="button" id="demo" class="btn btn-info btn-sm">Load Demo Manifest</button>
+</form>
+</section>
 
-  <script src="js/ie10-viewport-bug-workaround.js"></script>
-</body>
-</html>
+<section>
+  <video-js
+    id="example"
+    data-account="4590388345001"
+    data-player="3d0HFahKY"
+    data-embed="default" controls=""
+    data-application-id=""
+    width="600" height="300">
+  </video-js>
+  <script
+    src="//players.brightcove.net/4590388345001/3d0HFahKY_default/index.min.js">
+  </script>
+</section>
+
+<p>This player is The Brightcove Player with all DRM enabled.<br><a href="https://www.brightcove.com/en/online-video-platform/video-player">More details can be found here.</a></p>
+<p><small>This should play CENC content everywhere, using the Brightcove special sauce for setting license URLs, <a href="http://docs.brightcove.com/en/video-cloud/brightcove-player/guides/dash-drm.html">as documented here.</a></small></p>
+
+<script>
+const customGetLicense = (keySystemOptions) => (emeOptions, keyMessage, callback) => {
+  const auth_alert = document.getElementById('bcov-auth-alert');
+  const headers = mergeAndRemoveNull(
+    {'Content-type': 'application/octet-stream'},
+    emeOptions.emeHeaders,
+    keySystemOptions.licenseHeaders
+  );
+
+  videojs.xhr({
+    uri: keySystemOptions.url,
+    method: 'POST',
+    responseType: 'arraybuffer',
+    body: keyMessage,
+    headers
+  }, (err, response, responseBody) => {
+    if (err) {
+      auth_alert.className = 'alert alert-warning';
+      auth_alert.innerHTML = 'Unknown Error';
+      callback(err);
+      return;
+    }
+    const jwt_valid = response.headers['bcov-jwt-validity'];
+    if (!jwt_valid) {
+      auth_alert.className = 'alert alert-warning';
+      auth_alert.innerHTML = 'No bcov-jwt-validity Header Found';
+    } else {
+      auth_alert.className = jwt_valid == 'success' ? 'alert alert-success' : 'alert alert-danger';
+      auth_alert.innerHTML = 'Brightcove JWT Validity: '+jwt_valid;
+    }
+    console.log(response.headers);
+    callback(null, responseBody);
+  });
+};
+
+const play = () => {
+  var player = videojs('example');
+  const auth_alert = document.getElementById('bcov-auth-alert'),
+      manifest_url = document.getElementById('manifest').value,
+      bcov_auth = document.getElementById('bcov-auth').value,
+      widevine_url = document.getElementById('widevine-url').value;
+  localStorage.setItem('manifest',manifest_url);
+  localStorage.setItem('widevine_url',widevine_url);
+  localStorage.setItem('bcov_auth',bcov_auth);
+  auth_alert.hidden = !bcov_auth
+  if (!auth_alert.hidden) {
+    auth_alert.className = 'alert';
+    auth_alert.innerHTML = '.....';
+  }
+  player.src({
+    src: manifest_url,
+    type: 'application/dash+xml',
+    dashPreprocessing: true,
+    emeHeaders: { 'BCOV-Auth': bcov_auth },
+    keySystems: {
+      'com.widevine.alpha': { getLicense: customGetLicense({ url: widevine_url }) },
+    }
+  });
+  player.play();
+}
+
+window.onload = () => {
+  const manifest     = document.getElementById('manifest'),
+        widevine_url = document.getElementById('widevine-url'),
+        bcov_auth = document.getElementById('bcov-auth');
+
+  if (!!localStorage.getItem('manifest')) {
+    manifest.value = localStorage.getItem('manifest');
+  }
+  if (!!localStorage.getItem('widevine_url')) {
+    widevine_url.value = localStorage.getItem('widevine_url');
+  }
+  if (!!localStorage.getItem('bcov_auth')) {
+    bcov_auth.value = localStorage.getItem('bcov_auth')
+  }
+  document.getElementById('playform').onsubmit = () => {
+    play();
+    return false;
+  }
+  document.getElementById('demo').onclick = () => {
+    manifest.value = 'http://rdmedia.bbc.co.uk/dash/ondemand/testcard/1/client_manifest-events.mpd';
+    play();
+  };
+};
+</script>

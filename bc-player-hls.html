@@ -1,87 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+---
+layout: default
+---
+<h1>Brightcove Player: HLS</h1>
 
-  <title>Bobby's Players - Brightcove Player</title>
+<section class="bootstrap-iso">
+  <form id="playform">
+    <div class="form-group">
+      <label for="manifest">HLS Manifest:</label>
+      <input type="text" class="form-control" id="manifest" name="manifest">
+    </div>
+    <button type="submit" class="btn btn-primary btn-lg">Play!</button><br><br>
+    <button type="button" id="demo" class="btn btn-info btn-sm">Load Demo Manifest</button>
+  </form>
+</section>
 
-  <!-- Bootstrap -->
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
-  <link href="css/jumbotron-narrow.css" rel="stylesheet">
+<section>
+  <video width="600" height="300" id="example" data-account="4590388345001" data-player="Bk96rZrc" data-embed="default" class="video-js vjs-default-skin center-block" controls></video>
+  <script src="//players.brightcove.net/4590388345001/Bk96rZrc_default/index.min.js"></script>
+</section>
 
-  <link rel="stylesheet" type="text/css" href="css/videojs-contrib-dash.css"></link>
+<p>This player is The Brightcove Player with all DRM enabled.<br><a href="https://www.brightcove.com/en/online-video-platform/video-player">More details can be found here.</a></p>
 
-  <!--  JQuery -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-  <script type="text/javascript">
-var _gaq = _gaq || [];
-_gaq.push(['_setAccount', 'UA-30849962-1']);
-_gaq.push(['_trackPageview']);
-!function() {
-	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-}();
+<script>
+const player = videojs('example'),
+  manifest = document.getElementById('manifest');
+function play() {
+  player.src({
+    src: manifest.value,
+    type: 'application/x-mpegURL',
+  });
+  player.play();
+}
+document.getElementById('playform').onsubmit = () => {
+  play();
+  return false;
+};
+document.getElementById('demo').onclick = () => {
+  manifest.value = 'http://s3.amazonaws.com/_bc_dml/example-content/tears-of-steel/playlist.m3u8';
+  play();
+};
 </script>
-</head>
-
-<body>
-
-  <div class="container">
-    <div class="header clearfix">
-      <nav>
-        <ul class="nav nav-pills pull-right">
-          <li role="presentation"><a href="index.html">Select a Player</a></li>
-        </ul>
-      </nav>
-      <h3 class="text-muted">Bobby's Players</h3>
-    </div>
-
-    <div class="jumbotron">
-      <form id="playform">
-        <div class="form-group">
-          <label for="manifest">HLS Manifest:</label>
-          <input type="text" class="form-control" id="manifest" name="manifest">
-        </div>
-        <button type="submit" class="btn btn-primary btn-lg">Play!</button><br><br>
-        <button type="button" id="demo" class="btn btn-info btn-sm">Load Demo Manifest</button>
-      </form>
-    </div>
-
-    <div class="jumbotron">
-      <video width="600" height="300" id="example" data-account="4590388345001" data-player="Bk96rZrc" data-embed="default" class="video-js vjs-default-skin center-block" controls></video>
-      <script src="//players.brightcove.net/4590388345001/Bk96rZrc_default/index.min.js"></script>
-    </div>
-
-    <div class="jumbotron">
-      <p>This player is The Brightcove Player with all DRM enabled.<br><a href="https://www.brightcove.com/en/online-video-platform/video-player">More details can be found here.</a></p>
-    </div>
-
-    <script>
-    var player = videojs('example');
-    $( "#playform" ).submit(function( event ) {
-      player.src({
-        src: $( "#manifest" ).val(),
-        type: 'application/x-mpegURL'
-      });
-      player.play();
-      event.preventDefault();
-    });
-    $( "#demo" ).click(function() {
-      $( "#manifest" ).val("http://s3.amazonaws.com/_bc_dml/example-content/tears-of-steel/playlist.m3u8");
-      $( "#playform" ).submit();
-    });
-    </script>
-
-    <footer class="footer">
-     <p>Shamelessly copied from <a href="http://philcluff.co.uk/players/index.html">Phil's Players</a> &copy; Phil Cluff 2016</p>
-    </footer>
-
-  </div>
-
-  <script src="js/ie10-viewport-bug-workaround.js"></script>
-</body>
-</html>

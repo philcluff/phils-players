@@ -1,122 +1,63 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+---
+layout: default
+---
+<h1>Video.js with Contrib Dash</h1>
+<!-- VideoJS, DashJS -->
+<script src="js/video.js"></script>
+<script src="js/dash.all.js"></script>
+<script src="js/videojs-dash.min.js"></script>
+<link rel="stylesheet"href="css/video-js.min.css" ></link>
+<link rel="stylesheet" type="text/css" href="css/videojs-contrib-dash.css"></link>
 
-  <title>Bobby's Players - VideoJS with Contrib Dash (DashJS)</title>
+<section class="bootstrap-iso">
+  <form id="playform">
+    <div class="form-group">
+      <label for="manifest">MPEG DASH Manifest:</label>
+      <input type="text" class="form-control" id="manifest" name="manifest">
+    </div>
+    <div class="form-group">
+      <label for="license">Widevine License Server: <small>(Optional)</small></label>
+      <input type="text" class="form-control" id="license" name="license">
+    </div>
+    <button type="submit" class="btn btn-primary btn-lg">Play!</button><br><br>
+    <button type="button" id="demo" class="btn btn-info btn-sm">Load Demo Manifest</button>
+  </form>
+</section>
 
-  <!-- Bootstrap -->
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
-  <link href="css/jumbotron-narrow.css" rel="stylesheet">
+<section>
+  <video id="example" width="600" height="300" class="video-js vjs-default-skin center-block" controls/>
+</section>
 
-  <!-- VideoJS, DashJS -->
-  <script src="js/video.js"></script>
-  <script src="js/dash.all.js"></script>
-  <script src="js/videojs-dash.min.js"></script>
-  <link rel="stylesheet"href="css/video-js.min.css" ></link>
-  <link rel="stylesheet" type="text/css" href="css/videojs-contrib-dash.css"></link>
+<section>
+  <p>This player is VideoJS with Contrib Dash (DashJS)<br><a href="http://videojs.github.io/videojs-contrib-dash/">More details can be found here.</a></p>
+  <p><small>VideoJS 5.2.1 ~ DashJS 1.5.1 ~ VideoJS Contrib Dash 2.0.0</small></p>
+</section>
 
-  <!-- JQuery -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-  <script type="text/javascript">
-var _gaq = _gaq || [];
-_gaq.push(['_setAccount', 'UA-30849962-1']);
-_gaq.push(['_trackPageview']);
-!function() {
-	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-}();
+<script>
+const player = videojs('example'),
+  manifest = document.getElementById('manifest'),
+  license = document.getElementById('license');
+
+function play() {
+  const opts = {
+    src: manifest.value,
+    type: 'application/dash+xml',
+  };
+  if (license.value !== '') {
+    console.log('Will do DRM');
+    opts.keySystemOptions = [{
+      name: 'com.widevine.alpha',
+      options: { licenseUrl: license.value },
+    }];
+  } else {
+    console.log('Will NOT do DRM');
+  }
+  player.src(opts);
+  player.play();
+}
+
+document.getElementById('demo').onclick = () => {
+  manifest.value = 'http://rdmedia.bbc.co.uk/dash/ondemand/testcard/1/client_manifest-events.mpd';
+  play();
+}
 </script>
-</head>
-
-<body>
-
-  <div class="container">
-    <div class="header clearfix">
-      <nav>
-        <ul class="nav nav-pills pull-right">
-          <li role="presentation"><a href="index.html">Select a Player</a></li>
-        </ul>
-      </nav>
-      <h3 class="text-muted">Bobby's Players</h3>
-    </div>
-
-    <div class="jumbotron">
-      <form id="playform">
-        <div class="form-group">
-          <label for="manifest">MPEG DASH Manifest:</label>
-          <input type="text" class="form-control" id="manifest" name="manifest">
-        </div>
-        <div class="form-group">
-          <label for="license">Widevine License Server: <small>(Optional)</small></label>
-          <input type="text" class="form-control" id="license" name="license">
-        </div>
-        <button type="submit" class="btn btn-primary btn-lg">Play!</button><br><br>
-        <button type="button" id="demo" class="btn btn-info btn-sm">Load Demo Manifest</button>
-      </form>
-    </div>
-
-    <div class="jumbotron">
-      <video id="example" width="600" height="300" class="video-js vjs-default-skin center-block" controls/>
-    </div>
-
-    <div class="jumbotron">
-      <p>This player is VideoJS with Contrib Dash (DashJS)<br><a href="http://videojs.github.io/videojs-contrib-dash/">More details can be found here.</a></p>
-      <p><small>VideoJS 5.2.1 ~ DashJS 1.5.1 ~ VideoJS Contrib Dash 2.0.0</small></p>
-    </div>
-
-    <script>
-    var player = videojs('example');
-    $( "#playform" ).submit(function( event ) {
-
-      var licenseUrl = $( "#license" ).val();
-      var manifestUrl = $( "#manifest" ).val();
-
-      // With Widevine
-      if (licenseUrl !== "") {
-        console.log('Will do DRM');
-        player.src({
-          src: manifestUrl,
-          type: 'application/dash+xml',
-          keySystemOptions: [
-            {
-              name: 'com.widevine.alpha',
-              options: {
-                licenseUrl: licenseUrl
-              }
-            }
-          ]
-        });
-      }
-      // No DRM
-      else {
-        console.log('Will NOT do DRM');
-        player.src({
-          src: manifestUrl,
-          type: 'application/dash+xml'
-        });
-      }
-
-      player.play();
-      event.preventDefault();
-    });
-
-    $( "#demo" ).click(function() {
-      $( "#manifest" ).val("http://rdmedia.bbc.co.uk/dash/ondemand/testcard/1/client_manifest-events.mpd");
-      $( "#playform" ).submit();
-    });
-    </script>
-
-    <footer class="footer">
-      <p>Shamelessly copied from <a href="http://philcluff.co.uk/players/index.html">Phil's Players</a> &copy; Phil Cluff 2016</p>
-    </footer>
-
-  </div>
-
-  <script src="js/ie10-viewport-bug-workaround.js"></script>
-</body>
-</html>

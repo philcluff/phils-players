@@ -1,3 +1,6 @@
+---
+layout: default
+---
 <!--
 // Copyright 2016 Google Inc. All Rights Reserved.
 //
@@ -13,77 +16,53 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 -->
-
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Cast Videos: Google Cast Chrome Sender SDK Demo App</title>
-  <link rel="stylesheet" type="text/css" href="css/app-chromecast-sender.css">
-  <link href='//fonts.googleapis.com/css?family=Roboto&subset=latin,cyrillic-ext,greek-ext,latin-ext' rel='stylesheet' type='text/css'>
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
-  <link href="css/jumbotron-narrow.css" rel="stylesheet">
-</head>
-<body>
-  <div class="container">
-    <div class="header clearfix">
-      <nav>
-        <ul class="nav nav-pills pull-right">
-          <li role="presentation"><a href="index.html">Select a Player</a></li>
-        </ul>
-      </nav>
-      <h3 class="text-muted">Bobby's Players</h3>
+<link rel="stylesheet" type="text/css" href="css/app-chromecast-sender.css">
+<link href='//fonts.googleapis.com/css?family=Roboto&subset=latin,cyrillic-ext,greek-ext,latin-ext' rel='stylesheet' type='text/css'>
+<h1>Chromecast Sender</h1>
+<section class="bootstrap-iso">
+  <form id="playform">
+    <div class="form-group">
+      <label for="manifest">DASH Manifest:</label>
+      <input type="text" class="form-control" id="manifest" name="manifest">
     </div>
-
-    <div class="jumbotron">
-      <form id="playform">
-        <div class="form-group">
-          <label for="manifest">DASH Manifest:</label>
-          <input type="text" class="form-control" id="manifest" name="manifest">
-        </div>
-        <div class="form-group">
-          <label for="widevine-url">Widevine License URL: (Optional)</label>
-          <input type="text" class="form-control" id="widevine-url" name="manifest">
-        </div>
-        <button type="submit" class="btn btn-primary btn-lg" is="google-cast-button" id="castbutton">Cast Not Available</button><br><br>
-        <button type="button" id="demo" class="btn btn-info btn-sm">Load Demo Manifest</button>
-      </form>
+    <div class="form-group">
+      <label for="widevine-url">Widevine License URL: (Optional)</label>
+      <input type="text" class="form-control" id="widevine-url" name="manifest">
     </div>
+    <button type="submit" class="btn btn-primary btn-lg" is="google-cast-button" id="castbutton">Cast Not Available</button><br><br>
+    <button type="button" id="demo" class="btn btn-info btn-sm">Load Demo Manifest</button>
+  </form>
+</section>
+<section>
+  <div class="blackbg" id="playerstatebg">IDLE</div>
+  <div class=label id="playerstate">IDLE</div>
+  <video id="video_element" width="600" height="300"></video>
+</section>
+<div id="media_control" class="container">
+    <div id="play"></div>
+    <div id="pause"></div>
+    <div id="progress_bg"></div>
+    <div id="progress"></div>
+    <div id="progress_indicator"></div>
+    <div id="fullscreen_expand"></div>
+    <div id="fullscreen_collapse"></div>
+    <!-- <button is="google-cast-button" id="castbutton"></button> -->
+    <div id="audio_bg"></div>
+    <div id="audio_bg_track"></div>
+    <div id="audio_indicator"></div>
+    <div id="audio_bg_level"></div>
+    <div id="audio_on"></div>
+    <div id="audio_off"></div>
+    <div id="duration">00:00:00</div>
+</div>
 
-    <div class="jumbotron">
-      <div class="blackbg" id="playerstatebg">IDLE</div>
-        <div class=label id="playerstate">IDLE</div>
-        <video id="video_element" width="600" height="300"></video>
-    </div>
-  </div>
-  <div id="media_control" class="container">
-     <div id="play"></div>
-     <div id="pause"></div>
-     <div id="progress_bg"></div>
-     <div id="progress"></div>
-     <div id="progress_indicator"></div>
-     <div id="fullscreen_expand"></div>
-     <div id="fullscreen_collapse"></div>
-     <!-- <button is="google-cast-button" id="castbutton"></button> -->
-     <div id="audio_bg"></div>
-     <div id="audio_bg_track"></div>
-     <div id="audio_indicator"></div>
-     <div id="audio_bg_level"></div>
-     <div id="audio_on"></div>
-     <div id="audio_off"></div>
-     <div id="duration">00:00:00</div>
-  </div>
-
-
-      <script src="js/app-chromecast-sender.js"></script>
-      <script type="text/javascript">
-        var castPlayer = new CastPlayer();
-        window['__onGCastApiAvailable'] = function(isAvailable) {
-            if (isAvailable) {
-                castPlayer.initializeCastPlayer();
-            }
-        };
-      </script>
-      <script type="text/javascript" src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
-</body>
-</html>
+<script src="js/app-chromecast-sender.js"></script>
+<script type="text/javascript">
+  var castPlayer = new CastPlayer();
+  window['__onGCastApiAvailable'] = (isAvailable) => {
+      if (isAvailable) {
+          castPlayer.initializeCastPlayer();
+      }
+  };
+</script>
+<script type="text/javascript" src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>

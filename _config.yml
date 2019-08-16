@@ -1,0 +1,39 @@
+title:  "Bobby's Players"
+theme: "jekyll-theme-dinky"
+repository: "soldiermoth/bobbys-players"
+google_analytics: "UA-30849962-1"
+
+players:
+  - short_name: 'Brightcove: HLS'
+    long_name: ''
+    url: 'bc-player-hls'
+    description: ''
+    sidebar: true
+  - short_name: 'Brightcove: Dash'
+    long_name: ''
+    url: 'bc-player-dash'
+    description: ''
+    sidebar: true
+  - short_name: 'Shaka'
+    long_name: ''
+    url: 'shaka'
+    description: ''
+  - short_name: 'DashIF Reference'
+    long_name: ''
+    url: 'dashjs'
+    description: ''
+    sidebar: true
+  - short_name: 'Chromecast'
+    long_name: ''
+    url: 'chromecast-sender'
+    description: ''
+  - short_name: 'VideoJS: HLS'
+    long_name: ''
+    url: 'videojs-contrib-hls'
+    description: ''
+    sidebar: true
+  - short_name: 'VideoJS: Dash'
+    long_name: ''
+    url: 'videojs-contrib-dash'
+    description: ''
+    sidebar: true
