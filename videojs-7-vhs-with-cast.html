@@ -71,27 +71,16 @@
 
     <script>
 
-
-
-
-var options = {
-  liveui: true,
-  controls: true,
-  fluid: true,
-  preloadWebComponents: true,
-  techOrder: [ 'chromecast', 'html5' ],
-  plugins: {
-      chromecast: {
-        addButtonToControlBar: true
+    // Options, so we can init the Chromecast plugin.
+    var options = {
+      preloadWebComponents: true,
+      techOrder: [ 'chromecast', 'html5' ],
+      plugins: {
+          chromecast: {
+            addButtonToControlBar: true
+          }
       }
-  }
-}
-
-    // var player = videojs('my-player', options, function onPlayerReady() {
-
-
-
-
+    };
     var player = videojs('example', options);
 
     // HLS Play button
