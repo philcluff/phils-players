@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Phil's Players - VideoJS 7</title>
+  <title>Phil's Players - VideoJS 7, with Chromecast!</title>
 
   <!-- Bootstrap -->
   <link href="css/bootstrap.flatly.min.css" title="default" rel="stylesheet">
@@ -23,6 +23,11 @@
 
   <!-- JQuery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+  <!-- Chromecast Plugin -->
+  <link href="css/silvermine-videojs-chromecast.css" rel="stylesheet">
+  <script src="js/silvermine-videojs-chromecast.min.js"></script>
+  <script src="//www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
 
 </head>
 
@@ -61,11 +66,22 @@
     </div>
 
     <div class="jumbotron">
-      <p><small>VideoJS 7.6.6 (VHS)</small></p>
+      <p><small>VideoJS 7.6.6 with Chromecast support!</small></p>
     </div>
 
     <script>
-    var player = videojs('example');
+
+    // Options, so we can init the Chromecast plugin.
+    var options = {
+      preloadWebComponents: true,
+      techOrder: [ 'chromecast', 'html5' ],
+      plugins: {
+          chromecast: {
+            addButtonToControlBar: true
+          }
+      }
+    };
+    var player = videojs('example', options);
 
     // HLS Play button
     $( "#hls-button" ).click(function( event ) {
