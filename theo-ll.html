@@ -42,16 +42,12 @@
     <div class="jumbotron">
       <form id="playform">
         <div class="form-group">
-          <label for="hls-manifest">HLS Manifest:</label>
+          <label for="hls-manifest">LL-HLS Manifest:</label>
           <input type="text" class="form-control" id="hls-manifest" name="hls-manifest"><br>
-          <button id="hls-button" type="button" class="btn btn-primary btn-lg">Play HLS!</button><br><br>
-          <label for="dash-manifest">DASH Manifest:</label>
-          <input type="text" class="form-control" id="dash-manifest" name="dash-manifest"><br>
-          <button id="dash-button" type="button" class="btn btn-primary btn-lg">Play DASH!</button><br><br>
+          <button id="hls-button" type="button" class="btn btn-primary btn-lg">Play LL-HLS!</button><br><br>
         </div>
 
-        <button type="button" id="hls-demo" class="btn btn-info btn-sm">Load Demo HLS Manifest</button>
-        <button type="button" id="dash-demo" class="btn btn-info btn-sm">Load Demo DASH Manifest</button>
+        <button type="button" id="hls-demo" class="btn btn-info btn-sm">Load Demo LL-HLS Manifest</button>
       </form>
     </div>
 
@@ -102,7 +98,7 @@
     });
 
     $( "#hls-demo" ).click(function( event ) {
-      $( "#hls-manifest" ).val("https://d1czxfd0hfd9km.cloudfront.net/outputs/bbb/mediaconvert/hls/bbb.m3u8");
+      $( "#hls-manifest" ).val("https://ll-hls-test.apple.com/cmaf/master.m3u8");
       $( "#hls-button" ).trigger( "click" );
     });
 
