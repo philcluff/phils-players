@@ -17,19 +17,14 @@
   <script src="js/docs-themes.js" type="text/javascript"></script>
   <script type="text/javascript">set_style();</script>
 
-  <!-- Chromecast pre-load -->
-  <head data-cast-api-enabled="true"> <!-- allow chromecast extention -->
-  <script src="//www.gstatic.com/cv/js/sender/v1/cast_sender.js"></script>
-
   <!-- VideoJS, DashJS -->
-  <script src="//vjs.zencdn.net/5.10/video.js"></script>
-  <script src="//cdn.dashjs.org/latest/dash.all.debug.js"></script>
-  <script src="https://npmcdn.com/videojs-contrib-dash@^2.6.1/dist/videojs-dash.js"></script>
-  <link href="//vjs.zencdn.net/5.10/video-js.css" rel="stylesheet">
+  <script src="//vjs.zencdn.net/7.16.0/video.js"></script>
+  <script src="https://unpkg.com/videojs-contrib-dash@5.1.0/dist/videojs-dash.js"></script>
+  <link href="//vjs.zencdn.net/7.16.0/video-js.css" rel="stylesheet">
 
   <!-- Chromecast post-load -->
-  <script src="js/videojs-chromecast/videojs-chromecast.min.js"></script>
-  <link href="js/videojs-chromecast/videojs-chromecast.css" rel="stylesheet">
+  <script src="https://unpkg.com/@silvermine/videojs-chromecast@1.3.2/dist/silvermine-videojs-chromecast.min.js"></script>
+  <link href="https://unpkg.com/@silvermine/videojs-chromecast@1.3.2/dist/silvermine-videojs-chromecast.css" rel="stylesheet">
 
   <!-- JQuery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
@@ -71,7 +66,7 @@
 
     <div class="jumbotron">
       <p>This player is VideoJS with Contrib Dash (DashJS)<br><a href="http://videojs.github.io/videojs-contrib-dash/">More details can be found here.</a></p>
-      <p><small>VideoJS 5.10 ~ DashJS Latest ~ VideoJS Contrib Dash 2.6.1</small></p>
+      <p><small>VideoJS 7.16.0 ~ DashJS 4.0.1 ~ VideoJS Contrib Dash 5.1.0</small></p>
     </div>
 
     <script>
