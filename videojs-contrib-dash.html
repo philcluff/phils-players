@@ -71,7 +71,15 @@
     </div>
 
     <script>
-    var player = videojs('example');
+    var player = videojs('example', {
+      techOrder: ['chromecast', 'html5'],
+      plugins: {
+        chromecast: {
+          addButtonToControlBar: true
+        }
+      }
+    });
+
     $( "#playform" ).submit(function( event ) {
 
       var licenseUrl = $( "#license" ).val();
