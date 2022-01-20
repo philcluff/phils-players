@@ -66,7 +66,6 @@
 
     window.muxPlayerInitTime = Date.now();
     
-
     // Play button
     $( "#hls-button" ).click(function( event ) {
       var video = document.getElementById('example');
@@ -85,7 +84,6 @@
           }
         });
       }
-
 
       hls.loadSource($( "#manifest" ).val());
       hls.attachMedia(video);
