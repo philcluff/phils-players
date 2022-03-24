@@ -12,27 +12,45 @@ function initApp() {
   }
 }
 
-function initPlayer() {
-  // Create a Player instance.
+function init() {
+  // When using the UI, the player is made automatically by the UI object.
   var video = document.getElementById('video');
-  var player = new shaka.Player(video);
+  var ui = video['ui'];
+  var controls = ui.getControls();
+  var player = controls.getPlayer();
 
-  // Attach player to the window to make it easy to access in the JS console.
+  // Attach player and ui to the window to make it easy to access in the JS console.
   window.player = player;
+  window.ui = ui;
 
   // Listen for error events.
-  player.addEventListener('error', onErrorEvent);
+  player.addEventListener('error', onPlayerErrorEvent);
+  controls.addEventListener('error', onUIErrorEvent);
 }
 
-function onErrorEvent(event) {
+function onPlayerErrorEvent(errorEvent) {
   // Extract the shaka.util.Error object from the event.
-  onError(event.detail);
+  onPlayerError(event.detail);
 }
 
-function onError(error) {
-  // Log the error.
+function onPlayerError(error) {
+  // Handle player error
   console.error('Error code', error.code, 'object', error);
 }
 
-document.addEventListener('DOMContentLoaded', initApp);
+function onUIErrorEvent(errorEvent) {
+  // Extract the shaka.util.Error object from the event.
+  onPlayerError(event.detail);
+}
 
+function initFailed(errorEvent) {
+  // Handle the failure to load; errorEvent.detail.reasonCode has a
+  // shaka.ui.FailReasonCode describing why.
+  console.error('Unable to load the UI library!');
+}
+
+// Listen to the custom shaka-ui-loaded event, to wait until the UI is loaded.
+document.addEventListener('shaka-ui-loaded', init);
+// Listen to the custom shaka-ui-load-failed event, in case Shaka Player fails
+// to load (e.g. due to lack of browser support).
+document.addEventListener('shaka-ui-load-failed', initFailed);
