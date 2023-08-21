@@ -65,12 +65,9 @@
     </div>
 
     <script>
-      console.log(videojs.log.level());
       videojs.log.level("debug");
-      console.log(videojs.log.level());
       var player = videojs('example');
-      videojs.log.level("debug");
-      videojs.log.debug("This is a log message");
+      videojs.log.debug("Debug logging is enabled.");
 
     // HLS Play button
     $( "#hls-button" ).click(function( event ) {
