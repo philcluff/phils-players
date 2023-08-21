@@ -52,9 +52,17 @@
     </div>
 
     <div class="jumbotron">
-      <video id="example" data-account="5270290590001" data-player="BJszhI6rx" data-embed="default" data-application-id class="video-js vjs-default-skin center-block" controls width="600" height="338"></video>
-      <script src="//players.brightcove.net/5270290590001/BJszhI6rx_default/index.min.js"></script>
-    </div>
+      <video-js id="example"
+        data-account="5270290590001"
+        data-player="default"
+        data-embed="default"
+        data-application-id
+        controls
+        width="600"
+        height="338"
+        style="margin: auto;"></video-js>
+      <script src="https://players.brightcove.net/5270290590001/default_default/index.min.js"></script>
+  </div>
 
     <div class="jumbotron">
       <p>This player is The Brightcove Player with all DRM enabled.<br><a href="https://www.brightcove.com/en/online-video-platform/video-player">More details can be found here.</a></p>
@@ -63,8 +71,8 @@
     </div>
 
     <script type='text/javascript'>
+    var player = videojs.getPlayer('example')
 
-    var player = videojs('example');
     options = {
       "verbose": true,
       "logClasses": true,
@@ -115,7 +123,7 @@
     </script>
 
     <footer class="footer">
-      <p>&copy; Phil Cluff &amp; <a href="https://github.com/GeneticGenesis/phils-players#authors"> The Authors</a> 2019.</p>
+      <p>&copy; Phil Cluff &amp; <a href="https://github.com/GeneticGenesis/phils-players#authors"> The Authors</a> 2023.</p>
     </footer>
 
   </div>
