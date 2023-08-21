@@ -16,7 +16,7 @@ My intention is to slowly populate this page with players, using a simple, idiot
 
 ## Authors
 
-* [Phil Cluff](https://github.com/geneticgenesis)
+* [Phil Cluff](https://github.com/philcluff)
 * [Stuart Hicks](https://github.com/stuarthicks)
 * [Jordi Cenzano](https://github.com/jordicenzano)
 * [Cameron Sparr](https://github.com/sparrc)
