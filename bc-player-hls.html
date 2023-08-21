@@ -50,8 +50,16 @@
     </div>
 
     <div class="jumbotron">
-      <video id="example" width="600" height="338" data-account="5270290590001" data-player="BJszhI6rx" data-embed="default" class="video-js vjs-default-skin center-block" controls></video>
-      <script src="//players.brightcove.net/5270290590001/BJszhI6rx_default/index.min.js"></script>
+      <video-js id="example"
+        data-account="5270290590001"
+        data-player="default"
+        data-embed="default"
+        data-application-id
+        controls
+        width="600"
+        height="338"
+        style="margin: auto;"></video-js>
+      <script src="https://players.brightcove.net/5270290590001/default_default/index.min.js"></script>
     </div>
 
     <div class="jumbotron">
@@ -60,7 +68,8 @@
     </div>
 
     <script>
-    var player = videojs('example');
+    var player = videojs.getPlayer('example')
+    
     $( "#playform" ).submit(function( event ) {
 
       player.src({
@@ -79,7 +88,7 @@
     </script>
 
     <footer class="footer">
-      <p>&copy; Phil Cluff &amp; <a href="https://github.com/GeneticGenesis/phils-players#authors"> The Authors</a> 2019.</p>
+      <p>&copy; Phil Cluff &amp; <a href="https://github.com/philcluff/phils-players#authors"> The Authors</a> 2023.</p>
     </footer>
 
   </div>
