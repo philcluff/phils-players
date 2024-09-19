@@ -18,7 +18,7 @@
   <script type="text/javascript">set_style();</script>
 
   <!-- THEOplayer -->
-  <link rel="stylesheet" type="text/css" href='https://cdn.myth.theoplayer.com/92f169ae-f5a0-4642-b6cb-248eef84e89d/ui.css'>
+  <link rel="stylesheet" type="text/css" href='https://cdn.theoplayer.com/dash/theoplayer/ui.css'>
 
   <!-- JQuery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
@@ -57,11 +57,11 @@
 
     <div class="jumbotron">
       <div class="theoplayer-container video-js theoplayer-skin center-block"></div>
-      <script type='text/javascript' src='https://cdn.myth.theoplayer.com/92f169ae-f5a0-4642-b6cb-248eef84e89d/THEOplayer.js'></script>
+      <script type='text/javascript' src='https://cdn.theoplayer.com/dash/theoplayer/THEOplayer.js'></script>
     </div>
 
     <div class="jumbotron">
-        <p><small>THEOplayer <span id="player-version"></span></small></p>
+      <p><small>THEOplayer <span id="player-version"></span> (latest)</small></p>
     </div>
 
     <script>
@@ -69,7 +69,9 @@
     var element = document.querySelector('.theoplayer-container');
 
     var player = new THEOplayer.Player(element, {
-      libraryLocation: 'https://cdn.myth.theoplayer.com/92f169ae-f5a0-4642-b6cb-248eef84e89d/',
+      libraryLocation: 'https://cdn.theoplayer.com/dash/theoplayer/',
+      // The following license will only work on localhost and philcluff.co.uk.
+      license: "sZP7IYe6T6foIKxeCLeLI6ke0D31FSxg3u5-CKhr0mkeCLRiISetTD46ClR6FOPlUY3zWokgbgjNIOf9flx10uaZ0S46FShc3S0-3QarC6zr3S5ZFSRtIuBc0lfi3SUl0OfVfK4_bQgZCYxNWoryIQXzImf90SRL0leZ3SCi0u5i0Oi6Io4pIYP1UQgqWgjeCYxgflEc3Lfo3Lf_3SbL0uBzFOPeWok1dDrLYtA1Ioh6TgV6WQjlCDcEWt3zf6i6bQ1NWQ3VUDIKFK3qFG47f6i6UQ1gWtAVCYggb6rlWoz6Ymi6IQj-CDgpbkjLWt4ZCoh6TgV6v6fVfKcqCoXVdQjLUOfVfGxEIDjiWQXrIYfpCoj-fgzVfG3edt06TgV6dwx-Wuh6Ymi6bo4pIXjNWYAZIY3LdDjpflNzbG4gFOPKIDXzUYPgbZf9Dkkj",
       ui : {
        width: '600px',
        height: '338px'
