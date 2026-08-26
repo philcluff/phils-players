@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Phil's Players - Video.js 10 (beta)</title>
+
+  <!-- Bootstrap -->
+  <link href="css/bootstrap.flatly.min.css" title="default" rel="stylesheet">
+  <link href="css/bootstrap.darkly.min.css" title="dark" rel="stylesheet">
+  <link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+  <link href="css/jumbotron-narrow.css" rel="stylesheet">
+
+  <!-- Style Switcher -->
+  <script src="js/docs-themes.js" type="text/javascript"></script>
+  <script type="text/javascript">set_style();</script>
+
+  <!-- Video.js 10: the video preset (player + default skin) plus the media elements we swap between -->
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@videojs/html@latest/cdn/video.js"></script>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@videojs/html@latest/cdn/media/hls-video.js"></script>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@videojs/html@latest/cdn/media/hlsjs-video.js"></script>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@videojs/html@latest/cdn/media/dash-video.js"></script>
+
+  <!-- JQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+  <style>
+    video-skin {
+      display: block;
+      width: 600px;
+      max-width: 100%;
+      aspect-ratio: 16 / 9;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="header clearfix">
+      <nav>
+        <ul class="nav nav-pills pull-right">
+          <li role="presentation"><a href="index.html">Select a Player</a></li>
+          <li role="presentation"><a href="#" onclick='switch_style("dark"); return false;'>Dark</a></li>
+          <li role="presentation"><a href="#" onclick='switch_style("default"); return false;'>Light</a></li>
+        </ul>
+      </nav>
+      <h3 class="text-muted">Phil's Players</h3>
+    </div>
+
+    <div class="jumbotron">
+      <form id="playform">
+        <div class="form-group">
+          <label for="hls-manifest">HLS Manifest:</label>
+          <input type="text" class="form-control" id="hls-manifest" name="hls-manifest"><br>
+          <label for="hls-engine">HLS Engine:</label>
+          <select class="form-control" id="hls-engine" name="hls-engine">
+            <option value="hlsjs-video" selected>hls.js (&lt;hlsjs-video&gt;)</option>
+            <option value="hls-video">SPF - Video.js's own engine (&lt;hls-video&gt;, fMP4 only, no MPEG-TS)</option>
+          </select><br>
+          <button id="hls-button" type="button" class="btn btn-primary btn-lg">Play HLS!</button><br><br>
+          <label for="dash-manifest">DASH Manifest:</label>
+          <input type="text" class="form-control" id="dash-manifest" name="dash-manifest"><br>
+          <button id="dash-button" type="button" class="btn btn-primary btn-lg">Play DASH!</button><br><br>
+        </div>
+
+        <button type="button" id="hls-demo" class="btn btn-info btn-sm">Load Demo HLS Manifest</button>
+        <button type="button" id="dash-demo" class="btn btn-info btn-sm">Load Demo DASH Manifest</button>
+      </form>
+    </div>
+
+    <div class="jumbotron">
+      <video-player>
+        <video-skin>
+          <video id="media" playsinline></video>
+        </video-skin>
+      </video-player>
+    </div>
+
+    <div class="jumbotron">
+      <p><small>Video.js 10 (beta) - <code>@videojs/html@latest</code>, default skin. HLS plays via <code>&lt;hlsjs-video&gt;</code> (hls.js) or <code>&lt;hls-video&gt;</code> (SPF, fMP4 only - the demo manifest is MPEG-TS so it will fail there). DASH plays via <code>&lt;dash-video&gt;</code> (dash.js).</small></p>
+    </div>
+
+    <script>
+    function loadMedia(tagName, src) {
+      var media = document.createElement(tagName);
+      media.id = "media";
+      media.setAttribute("playsinline", "");
+      media.setAttribute("autoplay", "");
+      media.src = src;
+      document.getElementById("media").replaceWith(media);
+    }
+
+    $( "#hls-button" ).click(function( event ) {
+      loadMedia($( "#hls-engine" ).val(), $( "#hls-manifest" ).val());
+    });
+
+    $( "#dash-button" ).click(function( event ) {
+      loadMedia("dash-video", $( "#dash-manifest" ).val());
+    });
+
+    $( "#hls-demo" ).click(function( event ) {
+      $( "#hls-manifest" ).val("https://d1czxfd0hfd9km.cloudfront.net/outputs/bbb/mediaconvert/hls/bbb.m3u8");
+      $( "#hls-button" ).trigger( "click" );
+    });
+
+    $( "#dash-demo" ).click(function( event ) {
+      $( "#dash-manifest" ).val("https://d1czxfd0hfd9km.cloudfront.net/outputs/bbb/mediaconvert/dash/bbb.mpd");
+      $( "#dash-button" ).trigger( "click" );
+    });
+    </script>
+
+    <footer class="footer">
+      <p>&copy; Phil Cluff &amp; <a href="https://github.com/philcluff/phils-players#authors"> The Authors</a> 2023.</p>
+    </footer>
+
+  </div>
+
+  <script src="js/ie10-viewport-bug-workaround.js"></script>
+</body>
+</html>
