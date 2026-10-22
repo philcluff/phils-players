@@ -48,6 +48,12 @@ body {
   padding-top: 15px;
   padding-bottom: 15px;
 }
+.index .jumbotron p {
+  font-size: inherit;
+}
+.index .jumbotron p.lead {
+  font-size: 21px;
+}
 
 /* Supporting marketing content */
 .marketing {
