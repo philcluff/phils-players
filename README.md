@@ -26,7 +26,7 @@ My intention is to slowly populate this page with players, using a simple, idiot
 This project is licensed under [Apache V2](LICENSE). The players embedded within remain licensed as follows:
 
 * Players
-  * video-js, videojs-contrib-dash and videojs-contrib-hls are licensed under Apache V2
+  * video-js is licensed under Apache V2
   * dash.js is licensed under the BSD License
   * The Brightcove player is &copy; Brightcove 2017
 
