@@ -23,6 +23,8 @@ function init() {
   window.player = player;
   window.ui = ui;
 
+  $("#player-version").text(shaka.Player.version);
+
   // Listen for error events.
   player.addEventListener('error', onPlayerErrorEvent);
   controls.addEventListener('error', onUIErrorEvent);
@@ -30,7 +32,7 @@ function init() {
 
 function onPlayerErrorEvent(errorEvent) {
   // Extract the shaka.util.Error object from the event.
-  onPlayerError(event.detail);
+  onPlayerError(errorEvent.detail);
 }
 
 function onPlayerError(error) {
@@ -40,7 +42,7 @@ function onPlayerError(error) {
 
 function onUIErrorEvent(errorEvent) {
   // Extract the shaka.util.Error object from the event.
-  onPlayerError(event.detail);
+  onPlayerError(errorEvent.detail);
 }
 
 function initFailed(errorEvent) {
