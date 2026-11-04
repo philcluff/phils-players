@@ -30,5 +30,5 @@ This project is licensed under [Apache V2](LICENSE). The players embedded within
   * dash.js is licensed under the BSD License
   * The Brightcove player is &copy; Brightcove 2017
 
-* Bootstrap
-  * This project uses Bootstrap, which is licensed under the MIT license.
+* Tailwind CSS
+  * This project loads Tailwind CSS from jsDelivr, which is licensed under the MIT license.

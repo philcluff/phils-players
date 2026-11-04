@@ -1,0 +1,32 @@
+:root {
+  --paper: #eef0f2;
+  --panel: #ffffff;
+  --ink: #15181c;
+  --muted: #5b636e;
+  --rule: #c9ced4;
+  --focus: #15181c;
+  --amber: #f2a900;
+  --amber-hover: #d99700;
+  --amber-ink: #15181c;
+  --tally-red: #e0301e;
+  --tally-green: #1fa34a;
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --paper: #16191d;
+  --panel: #20242a;
+  --ink: #e8eaed;
+  --muted: #9aa3ae;
+  --rule: #343a42;
+  --focus: #f2a900;
+  color-scheme: dark;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0s !important;
+  }
+}

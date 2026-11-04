@@ -2,79 +2,150 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>Phil's Players - Select a player</title>
 
-  <!-- Bootstrap -->
-  <link href="css/bootstrap.flatly.min.css" title="default" rel="stylesheet">
-  <link href="css/bootstrap.darkly.min.css" title="dark" rel="stylesheet">
-  <link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
-  <link href="css/jumbotron-narrow.css" rel="stylesheet">
-
-  <!-- Style Switcher -->
-  <script src="js/docs-themes.js" type="text/javascript"></script>
-  <script type="text/javascript">set_style();</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Fragment+Mono&display=swap" rel="stylesheet">
+  <link href="css/site.css" rel="stylesheet">
+  <script src="js/site.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.3"></script>
 </head>
 
-<body class="index">
-  <div class="container">
-    <div class="header clearfix">
-      <nav>
-        <ul class="nav nav-pills pull-right">
-          <li role="presentation" class="active"><a href="index.html">Select a Player</a></li>
-          <li role="presentation"><a href="#" onclick='switch_style("dark"); return false;'>Dark</a></li>
-          <li role="presentation"><a href="#" onclick='switch_style("default"); return false;'>Light</a></li>
+<body class="bg-paper font-sans text-ink antialiased">
+  <div class="mx-auto max-w-2xl px-5 sm:px-8">
+
+    <header class="flex justify-end py-5">
+      <button type="button" data-theme-toggle class="inline-flex items-center gap-2 rounded-sm px-2 py-1 text-sm font-medium text-muted hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">
+        <svg aria-hidden="true" viewBox="0 0 16 16" class="size-4"><circle cx="8" cy="8" r="6.25" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 1.75a6.25 6.25 0 0 1 0 12.5z" fill="currentColor"/></svg>
+        <span data-theme-toggle-label>Dark</span>
+      </button>
+    </header>
+
+    <main>
+      <section class="pt-6 pb-12 sm:pt-12">
+        <h1 class="text-5xl leading-[0.95] font-extrabold tracking-tight font-stretch-expanded sm:text-7xl">Phil's Players</h1>
+        <p class="mt-5 max-w-[34rem] text-lg leading-relaxed text-muted sm:text-xl">Bring your own HLS or DASH manifest and see how real players handle it.</p>
+      </section>
+
+      <section aria-labelledby="open-source" class="pb-10">
+        <h2 id="open-source" class="mb-3 text-lg font-bold">Open source</h2>
+        <ul class="space-y-1.5">
+          <li><a href="videojs-10.html" class="group flex rounded-sm bg-black text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">
+            <span class="w-1.5 shrink-0 rounded-l-sm bg-white/15 transition-colors group-hover:bg-tally-green group-focus-visible:bg-tally-green group-active:bg-tally-red"></span>
+            <span class="flex flex-1 items-center justify-between gap-4 px-4 py-3">
+              <span class="text-xl font-semibold font-stretch-condensed">Video.js 10</span>
+              <span class="flex text-xs font-medium text-white/75"><span class="w-12 rounded-[2px] border border-white/25 py-0.5 text-center">HLS</span><span class="ml-1.5 w-12 rounded-[2px] border border-white/25 py-0.5 text-center">DASH</span></span>
+            </span>
+          </a></li>
+          <li><a href="dashjs.html" class="group flex rounded-sm bg-black text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">
+            <span class="w-1.5 shrink-0 rounded-l-sm bg-white/15 transition-colors group-hover:bg-tally-green group-focus-visible:bg-tally-green group-active:bg-tally-red"></span>
+            <span class="flex flex-1 items-center justify-between gap-4 px-4 py-3">
+              <span class="text-xl font-semibold font-stretch-condensed">dash.js</span>
+              <span class="flex text-xs font-medium text-white/75"><span class="w-12"></span><span class="ml-1.5 w-12 rounded-[2px] border border-white/25 py-0.5 text-center">DASH</span></span>
+            </span>
+          </a></li>
+          <li><a href="hls-js.html" class="group flex rounded-sm bg-black text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">
+            <span class="w-1.5 shrink-0 rounded-l-sm bg-white/15 transition-colors group-hover:bg-tally-green group-focus-visible:bg-tally-green group-active:bg-tally-red"></span>
+            <span class="flex flex-1 items-center justify-between gap-4 px-4 py-3">
+              <span class="text-xl font-semibold font-stretch-condensed">HLS.js</span>
+              <span class="flex text-xs font-medium text-white/75"><span class="w-12 rounded-[2px] border border-white/25 py-0.5 text-center">HLS</span><span class="ml-1.5 w-12"></span></span>
+            </span>
+          </a></li>
+          <li><a href="hls-js-with-mux.html" class="group flex rounded-sm bg-black text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">
+            <span class="w-1.5 shrink-0 rounded-l-sm bg-white/15 transition-colors group-hover:bg-tally-green group-focus-visible:bg-tally-green group-active:bg-tally-red"></span>
+            <span class="flex flex-1 items-center justify-between gap-4 px-4 py-3">
+              <span class="text-xl font-semibold font-stretch-condensed">HLS.js with Mux Data</span>
+              <span class="flex text-xs font-medium text-white/75"><span class="w-12 rounded-[2px] border border-white/25 py-0.5 text-center">HLS</span><span class="ml-1.5 w-12"></span></span>
+            </span>
+          </a></li>
+          <li><a href="shaka-player.html" class="group flex rounded-sm bg-black text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">
+            <span class="w-1.5 shrink-0 rounded-l-sm bg-white/15 transition-colors group-hover:bg-tally-green group-focus-visible:bg-tally-green group-active:bg-tally-red"></span>
+            <span class="flex flex-1 items-center justify-between gap-4 px-4 py-3">
+              <span class="text-xl font-semibold font-stretch-condensed">Shaka Player</span>
+              <span class="flex text-xs font-medium text-white/75"><span class="w-12 rounded-[2px] border border-white/25 py-0.5 text-center">HLS</span><span class="ml-1.5 w-12 rounded-[2px] border border-white/25 py-0.5 text-center">DASH</span></span>
+            </span>
+          </a></li>
         </ul>
-      </nav>
-      <h3 class="text-muted">Phil's Players</h3>
-    </div>
+      </section>
 
-    <div class="jumbotron">
-      <h1>Phil's Players</h1>
-      <p class="lead">A set of video players where you can bring your own HLS or DASH manifest URL for a quick test.</p>
+      <section aria-labelledby="commercial" class="pb-10">
+        <h2 id="commercial" class="mb-3 text-lg font-bold">Commercial</h2>
+        <ul class="space-y-1.5">
+          <li><a href="mux-player.html" class="group flex rounded-sm bg-black text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">
+            <span class="w-1.5 shrink-0 rounded-l-sm bg-white/15 transition-colors group-hover:bg-tally-red group-focus-visible:bg-tally-red"></span>
+            <span class="flex flex-1 items-center justify-between gap-4 px-4 py-3">
+              <span class="text-xl font-semibold font-stretch-condensed">Mux Player</span>
+              <span class="flex text-xs font-medium text-white/75"><span class="w-12 rounded-[2px] border border-white/25 py-0.5 text-center">HLS</span><span class="ml-1.5 w-12"></span></span>
+            </span>
+          </a></li>
+          <li><a href="bitmovin-player.html" class="group flex rounded-sm bg-black text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">
+            <span class="w-1.5 shrink-0 rounded-l-sm bg-white/15 transition-colors group-hover:bg-tally-red group-focus-visible:bg-tally-red"></span>
+            <span class="flex flex-1 items-center justify-between gap-4 px-4 py-3">
+              <span class="text-xl font-semibold font-stretch-condensed">Bitmovin Player</span>
+              <span class="flex text-xs font-medium text-white/75"><span class="w-12 rounded-[2px] border border-white/25 py-0.5 text-center">HLS</span><span class="ml-1.5 w-12 rounded-[2px] border border-white/25 py-0.5 text-center">DASH</span></span>
+            </span>
+          </a></li>
+          <li><a href="theoplayer.html" class="group flex rounded-sm bg-black text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">
+            <span class="w-1.5 shrink-0 rounded-l-sm bg-white/15 transition-colors group-hover:bg-tally-red group-focus-visible:bg-tally-red"></span>
+            <span class="flex flex-1 items-center justify-between gap-4 px-4 py-3">
+              <span class="text-xl font-semibold font-stretch-condensed">THEOplayer</span>
+              <span class="flex text-xs font-medium text-white/75"><span class="w-12 rounded-[2px] border border-white/25 py-0.5 text-center">HLS</span><span class="ml-1.5 w-12 rounded-[2px] border border-white/25 py-0.5 text-center">DASH</span></span>
+            </span>
+          </a></li>
+          <li><a href="bc-player-hls.html" class="group flex rounded-sm bg-black text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">
+            <span class="w-1.5 shrink-0 rounded-l-sm bg-white/15 transition-colors group-hover:bg-tally-red group-focus-visible:bg-tally-red"></span>
+            <span class="flex flex-1 items-center justify-between gap-4 px-4 py-3">
+              <span class="text-xl font-semibold font-stretch-condensed">Brightcove Player</span>
+              <span class="flex text-xs font-medium text-white/75"><span class="w-12 rounded-[2px] border border-white/25 py-0.5 text-center">HLS</span><span class="ml-1.5 w-12"></span></span>
+            </span>
+          </a></li>
+          <li><a href="bc-player.html" class="group flex rounded-sm bg-black text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">
+            <span class="w-1.5 shrink-0 rounded-l-sm bg-white/15 transition-colors group-hover:bg-tally-red group-focus-visible:bg-tally-red"></span>
+            <span class="flex flex-1 items-center justify-between gap-4 px-4 py-3">
+              <span class="text-xl font-semibold font-stretch-condensed">Brightcove Player with Widevine</span>
+              <span class="flex text-xs font-medium text-white/75"><span class="w-12"></span><span class="ml-1.5 w-12 rounded-[2px] border border-white/25 py-0.5 text-center">DASH</span></span>
+            </span>
+          </a></li>
+        </ul>
+      </section>
 
-      <h2>Open Source players</h2>
-      <ul class="list-group">
-        <li class="list-group-item"><a href="videojs-10.html" >Video.js 10 (HLS or DASH)</a></li>
-        <li class="list-group-item"><a href="dashjs.html" >DashJS (DASH)</a></li>
-        <li class="list-group-item"><a href="hls-js.html" >HLS.js (HLS)</a> <br /> or <a href="hls-js-with-mux.html" >with Mux Data</a></li>
-        <li class="list-group-item"><a href="shaka-player.html" >Shaka Player (HLS or DASH)</a></li>
-        <li class="list-group-item"><a href="mux-player.html" >Mux Player (HLS)</a></li>
-      </ul>
+      <section aria-labelledby="legacy" class="pb-12">
+        <h2 id="legacy" class="text-lg font-bold">Legacy</h2>
+        <p class="mt-1 mb-3 max-w-[34rem] text-sm text-muted">Old versions kept so existing links still work. These will eventually redirect to the current version.</p>
+        <ul class="space-y-1.5">
+          <li><a href="videojs-8-latest.html" class="flex items-center justify-between gap-4 rounded-sm border border-rule px-4 py-2.5 text-muted hover:border-muted hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">
+            <span class="text-lg font-semibold font-stretch-condensed">Video.js 8</span>
+            <span class="flex text-xs font-medium"><span class="w-12 rounded-[2px] border border-current/30 py-0.5 text-center">HLS</span><span class="ml-1.5 w-12 rounded-[2px] border border-current/30 py-0.5 text-center">DASH</span></span>
+          </a></li>
+          <li><a href="videojs-7-vhs.html" class="flex items-center justify-between gap-4 rounded-sm border border-rule px-4 py-2.5 text-muted hover:border-muted hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">
+            <span class="text-lg font-semibold font-stretch-condensed">Video.js 7</span>
+            <span class="flex text-xs font-medium"><span class="w-12 rounded-[2px] border border-current/30 py-0.5 text-center">HLS</span><span class="ml-1.5 w-12 rounded-[2px] border border-current/30 py-0.5 text-center">DASH</span></span>
+          </a></li>
+          <li><a href="mux-video.html" class="flex items-center justify-between gap-4 rounded-sm border border-rule px-4 py-2.5 text-muted hover:border-muted hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">
+            <span class="text-lg font-semibold font-stretch-condensed">&lt;mux-video&gt;</span>
+            <span class="flex text-xs font-medium"><span class="w-12 rounded-[2px] border border-current/30 py-0.5 text-center">HLS</span><span class="ml-1.5 w-12"></span></span>
+          </a></li>
+          <li><a href="wowza-player.html" class="flex items-center justify-between gap-4 rounded-sm border border-rule px-4 py-2.5 text-muted hover:border-muted hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">
+            <span class="text-lg font-semibold font-stretch-condensed">Wowza Player</span>
+            <span class="text-xs font-medium">No longer available</span>
+          </a></li>
+        </ul>
+      </section>
 
-      <h2>Commercial players</h2>
-      <ul class="list-group">
-        <li class="list-group-item"><a href="bitmovin-player.html" >Bitmovin Player (HLS or DASH)</a></li>
-        <li class="list-group-item"><a href="theoplayer.html" >THEOplayer (HLS or DASH)</a></li>
-        <li class="list-group-item"><a href="bc-player.html" >Brightcove Player (DASH)</a></li>
-        <li class="list-group-item"><a href="bc-player-hls.html" >Brightcove Player (HLS)</a></li>
-      </ul>
+      <section aria-labelledby="about" class="border-t border-rule py-10">
+        <h2 id="about" class="text-lg font-bold">Why this exists</h2>
+        <p class="mt-2 max-w-[34rem] leading-relaxed text-muted">Player demo sites rarely let you test with your own media. Pick a player, paste a manifest URL and press play.</p>
+        <p class="mt-3"><a href="https://github.com/philcluff/phils-players" class="font-medium underline decoration-rule decoration-2 underline-offset-4 hover:decoration-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">Source on GitHub</a></p>
+      </section>
+    </main>
 
-      <h2>Legacy players</h2>
-      <p><small>These players are old, but remain because some people still have old links to them. Eventually we'll remove these and redirect you to the latest version.</small></p>
-      <ul class="list-group">
-        <li class="list-group-item"><a href="videojs-8-latest.html" >Video.js 8 (HLS or DASH)</a></li>
-        <li class="list-group-item"><a href="videojs-7-vhs.html" >Video.js 7 (HLS or DASH)</a></li>
-        <li class="list-group-item"><a href="mux-video.html" >&lt;mux-video&gt; (HLS)</a></li>
-        <li class="list-group-item"><a href="wowza-player.html" >Wowza Player (HLS)</a></li>
-      </ul>
-    </div>
-
-    <div class="jumbotron">
-      <h2>Tell me more...</h2>
-      <p>Video player demo websites rarely let you test their player with your media.</p>
-      <p>This site lets you select a player, enter a HLS or DASH manifest URL, and hit play!</p>
-      <p><a href="https://github.com/philcluff/phils-players">Code's on Github!</a></p>
-    </div>
-
-    <footer class="footer">
-      <p>&copy; Phil Cluff &amp; <a href="https://github.com/philcluff/phils-players#authors"> The Authors</a> 2015&ndash;2026.</p>
+    <footer class="border-t border-rule py-6 text-sm text-muted">
+      <p>&copy; <a href="https://philcluff.co.uk" class="underline decoration-rule underline-offset-4 hover:text-ink">Phil Cluff</a> &amp; <a href="https://github.com/philcluff/phils-players#authors" class="underline decoration-rule underline-offset-4 hover:text-ink">The Authors</a> 2015&ndash;2026.</p>
     </footer>
 
   </div>
-
-  <script src="js/ie10-viewport-bug-workaround.js"></script>
 </body>
 </html>
