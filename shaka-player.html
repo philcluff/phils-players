@@ -2,20 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>Phil's Players - Shaka Player for DASH or HLS</title>
 
-  <!-- Bootstrap -->
-  <link href="css/bootstrap.flatly.min.css" title="default" rel="stylesheet">
-  <link href="css/bootstrap.darkly.min.css" title="dark" rel="stylesheet">
-  <link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
-  <link href="css/jumbotron-narrow.css" rel="stylesheet">
-
-  <!-- Style Switcher -->
-  <script src="js/docs-themes.js" type="text/javascript"></script>
-  <script type="text/javascript">set_style();</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Fragment+Mono&display=swap" rel="stylesheet">
+  <link href="css/site.css" rel="stylesheet">
+  <script src="js/site.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.3"></script>
 
   <!--  JQuery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
@@ -38,91 +34,104 @@
   </style>
 </head>
 
-<body>
+<body class="bg-paper font-sans text-ink antialiased">
+  <div class="mx-auto max-w-3xl px-5 sm:px-8">
 
-  <div class="container">
-    <div class="header clearfix">
-      <nav>
-        <ul class="nav nav-pills pull-right">
-          <li role="presentation"><a href="index.html">Select a Player</a></li>
-          <li role="presentation"><a href="#" onclick='switch_style("dark"); return false;'>Dark</a></li>
-          <li role="presentation"><a href="#" onclick='switch_style("default"); return false;'>Light</a></li>
-        </ul>
+    <header class="flex items-center justify-between gap-4 py-5">
+      <a href="index.html" class="rounded-sm text-lg font-extrabold tracking-tight font-stretch-expanded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">Phil's Players</a>
+      <nav class="flex items-center gap-1 text-sm font-medium">
+        <a href="index.html" class="rounded-sm px-2 py-1 text-muted hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">All players</a>
+        <button type="button" data-theme-toggle class="inline-flex items-center gap-2 rounded-sm px-2 py-1 text-muted hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">
+          <svg aria-hidden="true" viewBox="0 0 16 16" class="size-4"><circle cx="8" cy="8" r="6.25" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 1.75a6.25 6.25 0 0 1 0 12.5z" fill="currentColor"/></svg>
+          <span data-theme-toggle-label>Dark</span>
+        </button>
       </nav>
-      <h3 class="text-muted">Phil's Players</h3>
-    </div>
+    </header>
 
-    <div class="jumbotron">
-      <form id="playform">
-        <div class="form-group">
-          <label for="manifest">DASH or HLS Manifest:</label>
-          <input type="text" class="form-control" id="manifest" name="manifest">
-        </div>
-        <button type="submit" class="btn btn-primary btn-lg">Play!</button><br><br>
-        <button type="button" id="hls-demo" class="btn btn-info btn-sm">Load Demo HLS Manifest</button>
-        <button type="button" id="dash-demo" class="btn btn-info btn-sm">Load Demo DASH Manifest</button>
-        <button type="button" id="sjn-demo" class="btn btn-info btn-sm">Load Sindarin translation</button>
-      </form>
-    </div>
-
-    <div class="jumbotron">
-      <div data-shaka-player-container
-           data-shaka-player-cast-receiver-id="BBED8D28">
-        <video id="video"
-               poster="https://shaka-player-demo.appspot.com/assets/poster.jpg"
-               data-shaka-player
-               style="width: 100%"
-               autoplay /></video>
+    <main class="pt-6 pb-12 sm:pt-10">
+      <div class="flex flex-wrap items-end justify-between gap-x-6 gap-y-3">
+        <h1 class="text-4xl leading-none font-extrabold tracking-tight font-stretch-expanded sm:text-5xl">Shaka Player</h1>
+        <p class="flex text-xs font-medium text-muted"><span class="w-12 rounded-[2px] border border-current/40 py-0.5 text-center">HLS</span><span class="ml-1.5 w-12 rounded-[2px] border border-current/40 py-0.5 text-center">DASH</span></p>
       </div>
-    </div>
 
-    <script>
-      $( "#playform" ).submit(function( event ) {
-        // Try to load a manifest.
-        // This is an asynchronous process.
-        player.load( $( "#manifest" ).val() ).then(function() {
-          // This runs if the asynchronous load is successful.
-          console.log('The video has now been loaded!');
-          // onPlayerError is executed if the asynchronous load fails.
-        }).catch(onPlayerError);
-        event.preventDefault();
-      });
+      <form id="playform" class="mt-8">
+        <label for="manifest" class="block text-sm font-semibold">Manifest URL</label>
+        <div class="mt-2 flex flex-col gap-2 sm:flex-row">
+          <input type="url" id="manifest" name="manifest" required placeholder="https://example.com/stream.m3u8" spellcheck="false" autocomplete="off" class="min-w-0 flex-1 rounded-sm border border-rule bg-panel px-3 py-2.5 font-mono text-sm placeholder:text-muted/70 focus:border-ink focus:outline-none">
+          <button type="submit" class="rounded-sm bg-amber px-6 py-2.5 font-semibold sm:w-36 text-amber-ink hover:bg-amber-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">Play</button>
+        </div>
+        <div class="mt-3 flex flex-wrap items-center gap-x-1 gap-y-2 text-sm">
+          <span class="mr-1 text-muted">Or try</span>
+          <button type="button" id="hls-demo" class="rounded-sm border border-rule px-2.5 py-1 font-medium hover:border-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">HLS demo</button>
+          <button type="button" id="dash-demo" class="rounded-sm border border-rule px-2.5 py-1 font-medium hover:border-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">DASH demo</button>
+          <button type="button" id="sjn-demo" class="rounded-sm border border-rule px-2.5 py-1 font-medium hover:border-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">UI in Sindarin</button>
+        </div>
+      </form>
 
-      $( "#dash-demo" ).click(function() {
-        $( "#manifest" ).val("https://d1czxfd0hfd9km.cloudfront.net/outputs/bbb/mediaconvert/dash/bbb.mpd");
-        $( "#playform" ).submit();
-      });
+      <figure class="mt-8">
+        <div class="rounded-md bg-black p-1.5">
+          <div class="aspect-video overflow-hidden rounded-sm">
+            <div data-shaka-player-container
+                 data-shaka-player-cast-receiver-id="BBED8D28"
+                 class="h-full w-full">
+              <video id="video"
+                     poster="https://shaka-player-demo.appspot.com/assets/poster.jpg"
+                     data-shaka-player
+                     class="h-full w-full"
+                     autoplay></video>
+            </div>
+          </div>
+        </div>
+        <figcaption data-tally data-state="idle" class="group mt-4 flex items-stretch rounded-sm bg-black text-white">
+          <span class="w-1.5 shrink-0 rounded-l-sm bg-white/15 transition-colors group-data-[state=loading]:bg-tally-green group-data-[state=paused]:bg-tally-green group-data-[state=playing]:bg-tally-red group-data-[state=error]:bg-amber"></span>
+          <span class="flex flex-1 items-center justify-between gap-4 px-3 py-2">
+            <span class="font-semibold font-stretch-condensed">Shaka Player <span id="player-version" class="ml-1 font-normal text-white/70"></span></span>
+            <span data-tally-label class="text-sm text-white/70">Idle</span>
+          </span>
+        </figcaption>
+      </figure>
 
-      $( "#hls-demo" ).click(function() {
-        $( "#manifest" ).val("https://d1czxfd0hfd9km.cloudfront.net/outputs/bbb/mediaconvert/hls/bbb.m3u8");
-        $( "#playform" ).submit();
-      });
+      <div class="mt-6 max-w-[38rem] text-sm leading-relaxed text-muted">
+        <p>Google's open source player with its built-in UI and Chromecast support. <a href="https://github.com/shaka-project/shaka-player" class="font-medium text-ink underline decoration-rule decoration-2 underline-offset-4 hover:decoration-ink">Shaka Player on GitHub</a></p>
+      </div>
+    </main>
 
-      $( "#sjn-demo" ).click(function() {
-        fetch('https://raw.githubusercontent.com/shaka-project/shaka-player/main/ui/locales/sjn.json').then(function(response) {
-          return response.json();
-        }).then(function(translations) {
-          ui.getControls().getLocalization().insert('sjn', new Map(Object.entries(translations)));
-          ui.getControls().getLocalization().changeLocale(['sjn'].concat(navigator.languages));
-        });
-      });
-
-    </script>
-
-    <div class="jumbotron">
-      <p><small>Shaka Player <span id="player-version"></span> with UI.<br><a href="https://github.com/shaka-project/shaka-player">More details can be found here.</a><small></p>
-    </div>
-
-    <script type='text/javascript'>
-
-    </script>
-
-    <footer class="footer">
-      <p>&copy; Phil Cluff &amp; <a href="https://github.com/philcluff/phils-players#authors"> The Authors</a> 2015&ndash;2026.</p>
+    <footer class="border-t border-rule py-6 text-sm text-muted">
+      <p>&copy; <a href="https://philcluff.co.uk" class="underline decoration-rule underline-offset-4 hover:text-ink">Phil Cluff</a> &amp; <a href="https://github.com/philcluff/phils-players#authors" class="underline decoration-rule underline-offset-4 hover:text-ink">The Authors</a> 2015&ndash;2026.</p>
     </footer>
 
   </div>
 
-  <script src="js/ie10-viewport-bug-workaround.js"></script>
+  <script>
+    $( "#playform" ).submit(function( event ) {
+      // Try to load a manifest.
+      // This is an asynchronous process.
+      player.load( $( "#manifest" ).val() ).then(function() {
+        // This runs if the asynchronous load is successful.
+        console.log('The video has now been loaded!');
+        // onPlayerError is executed if the asynchronous load fails.
+      }).catch(onPlayerError);
+      event.preventDefault();
+    });
+
+    $( "#dash-demo" ).click(function() {
+      $( "#manifest" ).val("https://d1czxfd0hfd9km.cloudfront.net/outputs/bbb/mediaconvert/dash/bbb.mpd");
+      $( "#playform" ).submit();
+    });
+
+    $( "#hls-demo" ).click(function() {
+      $( "#manifest" ).val("https://d1czxfd0hfd9km.cloudfront.net/outputs/bbb/mediaconvert/hls/bbb.m3u8");
+      $( "#playform" ).submit();
+    });
+
+    $( "#sjn-demo" ).click(function() {
+      fetch('https://raw.githubusercontent.com/shaka-project/shaka-player/main/ui/locales/sjn.json').then(function(response) {
+        return response.json();
+      }).then(function(translations) {
+        ui.getControls().getLocalization().insert('sjn', new Map(Object.entries(translations)));
+        ui.getControls().getLocalization().changeLocale(['sjn'].concat(navigator.languages));
+      });
+    });
+  </script>
 </body>
 </html>
