@@ -88,19 +88,22 @@
   </div>
 
   <script>
-    function showPlayerVersion() {
-      $( "#player-version" ).text('v' + document.querySelector('mux-player').playerSoftwareVersion);
+    function loadPlayer(sourceAttribute, value) {
+      var player = document.createElement('mux-player');
+      player.setAttribute('stream-type', 'on-demand');
+      player.setAttribute(sourceAttribute, value);
+      player.setAttribute('autoplay', '');
+      document.getElementById('player').replaceChildren(player);
+      $( "#player-version" ).text('v' + player.playerSoftwareVersion);
     }
 
     // Play button
     $( "#play-mux" ).click(function( event ) {
-      $( "#player" ).html('<mux-player stream-type="on-demand" playback-id="' +$( "#playback-id" ).val() + '" autoplay></mux-player>');
-      showPlayerVersion();
+      loadPlayer('playback-id', $( "#playback-id" ).val());
     });
 
     $( "#play-hls" ).click(function( event ) {
-      $( "#player" ).html('<mux-player stream-type="on-demand" src="' +$( "#manifest" ).val() + '" autoplay></mux-player>');
-      showPlayerVersion();
+      loadPlayer('src', $( "#manifest" ).val());
     });
 
     $( "#hls-demo" ).click(function( event ) {

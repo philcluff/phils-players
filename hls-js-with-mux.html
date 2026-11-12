@@ -84,15 +84,24 @@
   <script>
     window.muxPlayerInitTime = Date.now();
 
+    var video = document.getElementById('example');
+    var hls;
+
     $("#player-version").text('v' + Hls.version);
 
     // Play button
     $( "#hls-button" ).click(function( event ) {
-      var video = document.getElementById('example');
+      var previousHls = hls;
+      if (previousHls) {
+        if (video.mux) video.mux.removeHLSJS();
+        previousHls.destroy();
+      }
 
-      let hls = new Hls();
+      hls = new Hls();
 
-      if (typeof mux !== 'undefined') {
+      if (video.mux) {
+        video.mux.addHLSJS({ hlsjs: hls, Hls: Hls });
+      } else if (typeof mux !== 'undefined') {
         mux.monitor(video, {
           debug: false,
           hlsjs: hls,
@@ -107,6 +116,7 @@
 
       hls.loadSource($( "#manifest" ).val());
       hls.attachMedia(video);
+      if (previousHls && video.mux) video.mux.emit('videochange', {});
       hls.on(Hls.Events.MANIFEST_PARSED,function() {
         video.play();
       });

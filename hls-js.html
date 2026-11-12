@@ -79,12 +79,15 @@
   </div>
 
   <script>
+    var video = document.getElementById('example');
+    var hls;
+
     $("#player-version").text('v' + Hls.version);
 
     // Play button
     $( "#hls-button" ).click(function( event ) {
-      var video = document.getElementById('example');
-      var hls = new Hls();
+      if (hls) hls.destroy();
+      hls = new Hls();
       hls.loadSource($( "#manifest" ).val());
       hls.attachMedia(video);
       hls.on(Hls.Events.MANIFEST_PARSED,function() {

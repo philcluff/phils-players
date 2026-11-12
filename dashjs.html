@@ -79,13 +79,14 @@
   </div>
 
   <script>
-    video = document.querySelector("#example");
+    var video = document.querySelector("#example");
     var player = dashjs.MediaPlayer().create();
+    player.initialize(video, null, true);
 
     $("#player-version").text('v' + player.getVersion());
 
     $( "#play-button" ).click(function() {
-      player.initialize(video, $( "#manifest" ).val(), true);
+      player.attachSource($( "#manifest" ).val());
     });
 
     $( "#demo-button" ).click(function() {

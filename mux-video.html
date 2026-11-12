@@ -88,13 +88,23 @@
   </div>
 
   <script>
+    function loadVideo(sourceAttribute, value) {
+      var video = document.createElement('mux-video');
+      video.id = 'mux-player';
+      video.setAttribute('controls', '');
+      video.setAttribute(sourceAttribute, value);
+      video.setAttribute('env-key', '1o7ecphf34am3kaqquq06n0t3');
+      video.setAttribute('autoplay', '');
+      document.getElementById('player').replaceChildren(video);
+    }
+
     // Play button
     $( "#play-mux" ).click(function( event ) {
-      $( "#player" ).html('<mux-video id="mux-player" controls playback-id="' +$( "#playback-id" ).val() + '" env-key="1o7ecphf34am3kaqquq06n0t3" autoplay></mux-video>');
+      loadVideo('playback-id', $( "#playback-id" ).val());
     });
 
     $( "#play-hls" ).click(function( event ) {
-      $( "#player" ).html('<mux-video id="mux-player" controls src="' +$( "#manifest" ).val() + '" env-key="1o7ecphf34am3kaqquq06n0t3" autoplay></mux-video>');
+      loadVideo('src', $( "#manifest" ).val());
     });
 
     $( "#hls-demo" ).click(function( event ) {
